@@ -25,4 +25,12 @@ This should install and build everything, then run a development server on http:
 # Sign into admin system:
 
     http://0.0.0.0:8000/admin/
-    
+
+# Install client app dependencies:
+
+    cd client
+    make install
+
+# Run client app:
+
+    ionic serve
