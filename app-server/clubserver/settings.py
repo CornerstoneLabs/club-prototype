@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'classes',
     'news',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
