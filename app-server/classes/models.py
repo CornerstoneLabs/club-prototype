@@ -42,6 +42,8 @@ class Class(models.Model):
     title = models.CharField(max_length=1000)
     teacher = models.ForeignKey(User)
 
+    image = models.ImageField()
+
     def __str__(self):
         """Return title."""
         return self.title

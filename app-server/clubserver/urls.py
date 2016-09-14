@@ -1,4 +1,4 @@
-"""clubserver URL Configuration
+"""Clubserver URL Configuration.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -16,41 +16,15 @@ Including another URLconf
 from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
+from clubserver.viewsets import UserViewSet
+from news.viewsets import ArticleViewSet
+from rest_framework import routers
 
 admin.site.site_header = "Club Admin"
 
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
-from news.models import Article
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-# Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-
-# Serializers define the API representation.
-class ArticleSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Article
-        fields = ('id', 'title', 'content', 'author', 'date_published')
-
-# ViewSets define the view behavior.
-class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
-
-# Routers provide an easy way of automatically determining the URL conf.
 router.register(r'articles', ArticleViewSet)
-
 
 urlpatterns = [
     url(r'^', include(router.urls)),
