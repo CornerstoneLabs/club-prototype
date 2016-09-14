@@ -8,21 +8,21 @@ Prerequisites:
 
 Install the above, then do the following:
 
-  `cd app-server`
-  `make install`
-  `docker-compose up`
+    `cd app-server`
+    `make install`
+    `docker-compose up`
 
 This should install and build everything, then run a development server on http://0.0.0.0:8000/
 
 # Signing into Admin:
 
-  `make createsuperuser`
+    `make createsuperuser`
   
 # Run services:
  
-  `docker-compose up`
+    `docker-compose up`
   
 # Sign into admin system:
 
-  http://0.0.0.0:8000/admin/
+    http://0.0.0.0:8000/admin/
     
