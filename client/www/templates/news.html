@@ -1,0 +1,9 @@
+<ion-view view-title="News">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
+        {{article.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
