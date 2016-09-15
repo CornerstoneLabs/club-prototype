@@ -38,6 +38,27 @@ angular
 					}
 				}
 			})
+
+			.state('app.classes', {
+				url: '/classes/',
+				views: {
+					'menuContent': {
+						templateUrl: 'templates/classes.html',
+						controller: 'ClassesController'
+					}
+				}
+			})
+
+			.state('app.classes-detail', {
+				url: '/classes/:id',
+				views: {
+					'menuContent': {
+						templateUrl: 'templates/classes-detail.html',
+						controller: 'ClassesDetailController'
+					}
+				}
+			})
+
 			.state('app.news', {
 				url: '/news/',
 				views: {

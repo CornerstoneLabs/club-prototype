@@ -12,4 +12,10 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
         """Meta."""
 
         model = Article
-        fields = ('id', 'title', 'content', 'author', 'date_published')
+        fields = (
+            'id',
+            'title',
+            'content',
+            'author',
+            'date_published'
+        )
