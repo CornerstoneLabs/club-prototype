@@ -20,7 +20,7 @@ from clubserver.viewsets import UserViewSet
 from news.viewsets import ArticleViewSet
 from rest_framework import routers
 
-admin.site.site_header = "Club Admin"
+admin.site.site_header = 'Club Admin'
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)

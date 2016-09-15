@@ -1,6 +1,7 @@
 """Classes."""
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 
 DAY_NAME = [
@@ -27,6 +28,14 @@ class Location(models.Model):
         return self.title
 
 
+class ClassSessionNotification(models.Model):
+    """Notification for a single session."""
+
+    text = models.CharField(max_length=2000)
+    author = models.ForeignKey(User)
+    date_published = models.DateField(default=datetime.date.today)
+
+
 class Class(models.Model):
     """A class definition."""
 
@@ -44,6 +53,23 @@ class Class(models.Model):
 
     image = models.ImageField()
 
+    recurring = models.BooleanField(default=True)
+    sessions_start = models.DateField(blank=True, null=True)
+    sessions_end = models.DateField(blank=True, null=True)
+
     def __str__(self):
         """Return title."""
         return self.title
+
+
+class ClassSession(models.Model):
+    """A single session of a class."""
+
+    parent_class = models.ForeignKey(Class)
+    notifications = models.ManyToManyField(ClassSessionNotification, blank=True)
+    session_start = models.DateTimeField()
+    session_end = models.DateTimeField()
+
+    def __str__(self):
+        """Return title."""
+        return '%s %s %s' % (self.parent_class.title, self.session_start, self.session_end)

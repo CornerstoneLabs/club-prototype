@@ -13,4 +13,3 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         model = User
         fields = ('url', 'username', 'email', 'is_staff')
-4
