@@ -28,14 +28,6 @@ class Location(models.Model):
         return self.title
 
 
-class ClassSessionNotification(models.Model):
-    """Notification for a single session."""
-
-    text = models.CharField(max_length=2000)
-    author = models.ForeignKey(User)
-    date_published = models.DateField(default=datetime.date.today)
-
-
 class Class(models.Model):
     """A class definition."""
 
@@ -66,7 +58,6 @@ class ClassSession(models.Model):
     """A single session of a class."""
 
     parent_class = models.ForeignKey(Class)
-    notifications = models.ManyToManyField(ClassSessionNotification, blank=True)
     session_start = models.DateTimeField()
     session_end = models.DateTimeField()
 
@@ -85,3 +76,12 @@ class ClassSession(models.Model):
     def __str__(self):
         """Return title."""
         return '%s %s %s' % (self.parent_class.title, self.session_start, self.session_end)
+
+
+class ClassSessionNotification(models.Model):
+    """Notification for a single session."""
+
+    text = models.CharField(max_length=2000)
+    author = models.ForeignKey(User)
+    date_published = models.DateField(default=datetime.date.today)
+    session = models.ForeignKey(ClassSession)

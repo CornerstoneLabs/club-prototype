@@ -5,6 +5,7 @@ from django.contrib import admin
 from classes.models import Class
 from classes.models import Location
 from classes.models import ClassSession
+from classes.models import ClassSessionNotification
 
 
 def pad_class_day(item, loop_date):
@@ -84,3 +85,4 @@ class ClassSessionAdmin(admin.ModelAdmin):
 admin.site.register(Class, ClassAdmin)
 admin.site.register(ClassSession, ClassSessionAdmin)
 admin.site.register(Location)
+admin.site.register(ClassSessionNotification)
