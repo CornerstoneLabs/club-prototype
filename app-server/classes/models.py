@@ -70,6 +70,18 @@ class ClassSession(models.Model):
     session_start = models.DateTimeField()
     session_end = models.DateTimeField()
 
+    def session_day(self):
+        """Start date."""
+        return self.session_start.strftime("%Y-%m-%d")
+
+    def start_time(self):
+        """Start time."""
+        return self.session_start.strftime("%H:%M")
+
+    def end_time(self):
+        """Start time."""
+        return self.session_end.strftime("%H:%M")
+
     def __str__(self):
         """Return title."""
         return '%s %s %s' % (self.parent_class.title, self.session_start, self.session_end)
