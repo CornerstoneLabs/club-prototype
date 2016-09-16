@@ -16,5 +16,18 @@
   				I'm going to attend.
 			</button>
 		</div>
+
+		<div class="tab-wrapper row">
+			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'updates' }" >
+				<button class="tab-wrapper--button" ng-click="tab='updates'">Updates</button>
+			</div>
+			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'details' }">
+				<button class="tab-wrapper--button" ng-click="tab='details'">Details</button>
+			</div>
+		</div>
+
+		<div class="padding" ng-show="tab==='details'">
+			{{ classes.content }}
+		</div>
 	</ion-content>
 </ion-view>

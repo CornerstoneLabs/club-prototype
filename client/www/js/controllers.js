@@ -157,5 +157,7 @@ angular
 
 	.controller('ClassesDetailController', function($scope, $stateParams, Classes) {
 		$scope.classes = Classes.get($stateParams.id);
+
+		$scope.tab = 'updates';
 	});
 

@@ -1,1 +1,28 @@
 /* Empty. Add your own CSS if you like */
+.tab-wrapper {
+	border-bottom: solid 1px #e1e1e1;
+	width: 100%;
+}
+
+.tab-wrapper.row {
+	padding-bottom: 0;
+}
+
+.tab-wrapper--tab {
+	text-align: center;
+}
+
+.tab-wrapper--button {
+	background: #fff;
+	border: none;
+	color: #000;
+	font-size: 22px;
+	text-align: center;
+}
+
+.tab-wrapper--active::after {
+	color: #d0021b;
+	content: '●';
+	display: block;
+	text-align: center;
+}
