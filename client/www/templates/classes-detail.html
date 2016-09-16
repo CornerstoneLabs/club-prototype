@@ -1,21 +1,20 @@
 <ion-view view-title="Class">
 	<ion-content>
 		<img src="http://0.0.0.0:8000{{ classes.image_url }}" style="width: 100%" />
-
-		<h2>{{ classes.title }}</h2>
-		<div>
+		<div class="padding">
+			<h2>{{ classes.title }}</h2>
+		</div>
+		<div class="padding">
 			<span>Start: {{ classes.start_hours | numberFixedLen:2 }}:{{ classes.start_minutes | numberFixedLen:2 }}</span> |
 
 			<span>{{ classes.location }}</span> |
 
 			<span>{{ classes.teacher }}</span>
 		</div>
-
-		<p>
+		<div class="padding">
 			<button class="button button-full button-assertive">
   				I'm going to attend.
 			</button>
-		</p>
-
+		</div>
 	</ion-content>
 </ion-view>
