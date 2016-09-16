@@ -1,9 +1,26 @@
 <ion-view view-title="News">
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
-        {{article.title}}
-      </ion-item>
-    </ion-list>
-  </ion-content>
+	<ion-content>
+		<ion-list>
+			<img src="http://0.0.0.0:8000{{ brand.image_url }}" style="width: 100%" />
+
+			<div class="padding">
+				<h2 class="centre">{{ brand.title }}</h2>
+				<div>
+
+				</div>
+			</div>
+
+			<ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
+				<h2>{{article.title}}</h2>
+
+				<br/>
+
+				<div class="details--wrapper">
+					<span class="details--item">{{ article.date_published | date: 'dd/MM/yyyy' }}</span>
+
+					<span class="details--item last">{{ article.author }}</span>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
 </ion-view>

@@ -1,7 +1,17 @@
 <ion-view view-title="News">
 	<ion-content>
-		<h2>{{ news.title }}</h2>
-		{{ news }}
-		<img src="http://0.0.0.0:8000{{ news.image_url }}" style="width: 100%" />
+		<div class="padding">
+			<h2>{{article.title}}</h2>
+			<br/>
+			<div class="details--wrapper">
+				<span class="details--item">{{ article.date_published | date: 'dd/MM/yyyy' }}</span>
+				<span class="details--item last">{{ article.author }}</span>
+			</div>
+		</div>
+		<br/>
+		<img src="http://0.0.0.0:8000{{ article.image_url }}" style="width: 100%" />
+		<div class="padding">
+			{{ article.content }}
+		</div>
 	</ion-content>
 </ion-view>

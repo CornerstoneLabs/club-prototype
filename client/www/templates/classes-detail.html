@@ -1,15 +1,15 @@
 <ion-view view-title="Class">
 	<ion-content>
-		<img src="http://0.0.0.0:8000{{ classes.image_url }}" style="width: 100%" />
+		<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
 		<div class="padding">
-			<h2>{{ classes.title }}</h2>
+			<h2>{{ class.title }}</h2>
 		</div>
-		<div class="padding">
-			<span>Start: {{ classes.start_hours | numberFixedLen:2 }}:{{ classes.start_minutes | numberFixedLen:2 }}</span> |
+		<div class="padding details--wrapper">
+			<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
 
-			<span>{{ classes.location }}</span> |
+			<span class="details--item">{{ class.location }}</span>
 
-			<span>{{ classes.teacher }}</span>
+			<span class="details--item last">{{ class.teacher }}</span>
 		</div>
 		<div class="padding">
 			<button class="button button-full button-assertive">
@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="padding" ng-show="tab==='details'">
-			{{ classes.content }}
+			{{ class.content }}
 		</div>
 	</ion-content>
 </ion-view>

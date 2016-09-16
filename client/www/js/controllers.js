@@ -86,8 +86,53 @@ angular
 		}
 	])
 
-	.controller('NewsController', function($scope, News) {
+	.factory('Brand', [
+		'$http',
+		function($http) {
+
+			var brand = [];
+
+			function refresh (cb) {
+				var url = "http://0.0.0.0:8000/brand/";
+				$http
+					.get(url)
+					.then(function (response) {
+						angular.merge(brand, response.data);
+					}, function (error) {
+
+					});
+			}
+
+			return {
+				all: function() {
+					refresh();
+
+					return brand;
+				},
+				remove: function(brand) {
+					brand.splice(brand.indexOf(brand), 1);
+				},
+				get: function() {
+					if (brand.length > 0) {
+						return brand[0];
+					}
+
+					var holding = {
+					};
+
+					brand.push(holding);
+
+					refresh();
+
+					return holding;
+				}
+			};
+		}
+	])
+
+	.controller('NewsController', function($scope, News, Brand) {
 		$scope.news = News.all();
+		$scope.brand = Brand.get();
 
 		$scope.$on('$ionicView.enter', function() {
 			$scope.news = News.all();
@@ -95,7 +140,7 @@ angular
 	})
 
 	.controller('NewsDetailController', function($scope, $stateParams, News) {
-		$scope.news = News.get($stateParams.id);
+		$scope.article = News.get($stateParams.id);
 	})
 
 	.factory('Classes', [
@@ -148,15 +193,52 @@ angular
 	])
 
 	.controller('ClassesController', function($scope, Classes) {
-		$scope.classes = Classes.all();
+		function transformDays (classes) {
+			var days = {}
+			var dayName = [
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday',
+				'Sunday'
+			];
+
+			classes
+				.forEach(function (classItem) {
+					if (angular.isUndefined(days['k' + classItem.day])) {
+						days['k' + classItem.day] = {
+							name: dayName[classItem.day]
+						};
+					}
+
+					if (angular.isUndefined(days['k' + classItem.day].classes)) {
+						days['k' + classItem.day].classes = [];
+					}
+
+					days['k' + classItem.day].classes.push(classItem);
+				});
+
+			return days;
+		}
+
+		function reload ($scope) {
+			$scope.classes = Classes.all();
+			$scope.days = transformDays($scope.classes);
+		}
 
 		$scope.$on('$ionicView.enter', function() {
-			$scope.classes = Classes.all();
+			reload($scope);
 		});
+
+		$scope.tab = 'all';
+
+		reload($scope);
 	})
 
 	.controller('ClassesDetailController', function($scope, $stateParams, Classes) {
-		$scope.classes = Classes.get($stateParams.id);
+		$scope.class = Classes.get($stateParams.id);
 
 		$scope.tab = 'updates';
 	});

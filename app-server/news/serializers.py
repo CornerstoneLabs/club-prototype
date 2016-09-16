@@ -8,6 +8,8 @@ from news.models import Article
 class ArticleSerializer(serializers.HyperlinkedModelSerializer):
     """Article serializer."""
 
+    author = serializers.StringRelatedField()
+
     class Meta:
         """Meta."""
 

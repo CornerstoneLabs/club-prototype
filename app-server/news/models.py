@@ -11,7 +11,7 @@ class Article(models.Model):
     title = models.CharField(max_length=2000)
     content = models.TextField()
     author = models.ForeignKey(User)
-    date_published = models.DateField(default=datetime.date.today)
+    date_published = models.DateField(default=datetime.datetime.today)
     image = models.ImageField()
 
     def image_url(self):

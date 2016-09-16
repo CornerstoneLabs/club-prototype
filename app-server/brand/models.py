@@ -14,3 +14,7 @@ class Brand(models.Model):
     def __str__(self):
         """Default item."""
         return self.title
+
+    def image_url(self):
+        """Return image URL."""
+        return self.image.url

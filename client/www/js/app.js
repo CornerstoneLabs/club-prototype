@@ -23,7 +23,6 @@ angular
 	})
 	.config(function($stateProvider, $urlRouterProvider) {
 		$stateProvider
-
 			.state('app', {
 				url: '/app',
 				abstract: true,
@@ -38,7 +37,6 @@ angular
 					}
 				}
 			})
-
 			.state('app.classes', {
 				url: '/classes/',
 				views: {
@@ -48,7 +46,6 @@ angular
 					}
 				}
 			})
-
 			.state('app.classes-detail', {
 				url: '/classes/:id',
 				views: {
@@ -58,7 +55,6 @@ angular
 					}
 				}
 			})
-
 			.state('app.news', {
 				url: '/news/',
 				views: {
@@ -68,7 +64,6 @@ angular
 					}
 				}
 			})
-
 			.state('app.news-detail', {
 				url: '/news/:id',
 				views: {
@@ -82,18 +77,17 @@ angular
 			// if none of the above states are matched, use this as the fallback
 			$urlRouterProvider.otherwise('/app/news/');
 	})
-
 	.filter('numberFixedLen', function () {
-        return function (n, len) {
-            var num = parseInt(n, 10);
-            len = parseInt(len, 10);
-            if (isNaN(num) || isNaN(len)) {
-                return n;
-            }
-            num = ''+num;
-            while (num.length < len) {
-                num = '0'+num;
-            }
-            return num;
-        };
-    });
+		return function (n, len) {
+			var num = parseInt(n, 10);
+			len = parseInt(len, 10);
+			if (isNaN(num) || isNaN(len)) {
+				return n;
+			}
+			num = ''+num;
+			while (num.length < len) {
+				num = '0'+num;
+			}
+			return num;
+		};
+	});

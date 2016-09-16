@@ -1,9 +1,30 @@
 <ion-view view-title="Classes">
 	<ion-content>
+		<div class="tab-wrapper assertive row no-border">
+			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'all' }" >
+				<button class="tab-wrapper--button" ng-click="tab='all'">All Classes</button>
+			</div>
+			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'your' }">
+				<button class="tab-wrapper--button" ng-click="tab='your'">Your Classes</button>
+			</div>
+		</div>
 		<ion-list>
-			<ion-item ng-repeat="class in classes" ui-sref="app.classes-detail({ id: class.id })">
-				{{ class.title }}
-			</ion-item>
+			<div ng-repeat="day in days">
+				<div class="day-stripe">{{ day.name }}</div>
+				<div ng-repeat="class in day.classes" ui-sref="app.classes-detail({ id: class.id })">
+					<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
+					<div class="padding">
+						<h2>{{ class.title }}</h2>
+					</div>
+					<div class="padding details--wrapper">
+						<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
+
+						<span class="details--item">{{ class.location }}</span>
+
+						<span class="details--item last">{{ class.teacher }}</span>
+					</div>
+				</div>
+			</div>
 		</ion-list>
 	</ion-content>
 </ion-view>
