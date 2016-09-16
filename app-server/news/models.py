@@ -13,3 +13,7 @@ class Article(models.Model):
     author = models.ForeignKey(User)
     date_published = models.DateField(default=datetime.date.today)
     image = models.ImageField()
+
+    def image_url(self):
+        """Return image URL."""
+        return self.image.url

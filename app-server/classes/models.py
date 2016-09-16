@@ -49,6 +49,10 @@ class Class(models.Model):
     sessions_start = models.DateField(blank=True, null=True)
     sessions_end = models.DateField(blank=True, null=True)
 
+    def image_url(self):
+        """Return image URL."""
+        return self.image.url
+
     def __str__(self):
         """Return title."""
         return self.title

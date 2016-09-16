@@ -23,7 +23,7 @@ class ClassSerializer(serializers.HyperlinkedModelSerializer):
             'location',
             'title',
             'teacher',
-            'image',
+            'image_url',
         )
 
 
