@@ -9,6 +9,9 @@ from classes.models import Location
 class ClassSerializer(serializers.HyperlinkedModelSerializer):
     """Class serializer."""
 
+    location = serializers.StringRelatedField()
+    teacher = serializers.StringRelatedField()
+
     class Meta:
         """Meta."""
 
