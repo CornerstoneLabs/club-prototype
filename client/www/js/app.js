@@ -5,7 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular
-	.module('starter', ['ionic', 'starter.controllers'])
+	.module('starter', [
+		'ionic',
+		'starter.controllers',
+		'ngCookies'
+	])
 	.run(function($ionicPlatform) {
 		$ionicPlatform.ready(function() {
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,7 +25,10 @@ angular
 			}
 		});
 	})
-	.config(function($stateProvider, $urlRouterProvider) {
+	.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+		$httpProvider.defaults.xsrfCookieName = 'csrftoken';
+		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 		$stateProvider
 			.state('app', {
 				url: '/app',

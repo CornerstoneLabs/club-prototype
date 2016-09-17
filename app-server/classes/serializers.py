@@ -3,6 +3,7 @@
 
 from rest_framework import serializers
 from classes.models import Class
+from classes.models import ClassSession
 from classes.models import Location
 
 
@@ -28,6 +29,21 @@ class ClassSerializer(serializers.HyperlinkedModelSerializer):
             'teacher',
             'image_url',
             'content',
+        )
+
+
+class ClassSessionSerializer(serializers.HyperlinkedModelSerializer):
+    """Class session serializer."""
+
+    class Meta:
+        """Meta."""
+
+        model = ClassSession
+        fields = (
+            'parent_class',
+            'session_start',
+            'session_end',
+            'checked_in'
         )
 
 

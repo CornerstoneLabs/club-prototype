@@ -237,9 +237,65 @@ angular
 		reload($scope);
 	})
 
-	.controller('ClassesDetailController', function($scope, $stateParams, Classes) {
-		$scope.class = Classes.get($stateParams.id);
+	.controller('ClassesDetailController', [
+		'$q',
+		'$scope',
+		'$stateParams',
+		'Classes',
+		'$http',
+		'$cookies',
+		'$cookieStore',
+		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore) {
+			$scope.class = Classes.get($stateParams.id);
 
-		$scope.tab = 'updates';
-	});
+			$scope.tab = 'updates';
+
+			function login () {
+				var deferred = $q.defer();
+				var user_data = {
+					'username': 'adam',
+					'password': 'm0nk3ym0nk3y',
+				};
+
+				$http
+					.post('http://0.0.0.0:8000/' + 'api-token-auth/', user_data, {"Authorization": ""})
+					.success(function(response) {
+						$cookieStore.put('djangotoken', response.token);
+						$http.defaults.headers.common['Authorization'] = 'Token ' + response.token;
+
+						deferred.resolve(response.token);
+				  });
+
+				return deferred.promise;
+			}
+
+			function attend (token) {
+				debugger;
+				var config = {
+					method: 'POST',
+					url: 'http://0.0.0.0:8000/actions/classes/add-participant/',
+					data: {
+						class_id: $stateParams.id
+					},
+					headers: {
+					  'X-CSRFToken': $cookies['djangotoken'],
+					  'Authorization': 'Token ' + token
+					}
+				};
+
+				$http.defaults.headers.common['X-CSRFToken']
+
+				$http(config)
+					.then(function (response) {
+						debugger;
+					}, function (error) {
+						debugger;
+					});
+			}
+
+			$scope.attend = function () {
+				login().then(attend);
+			};
+		}
+	]);
 

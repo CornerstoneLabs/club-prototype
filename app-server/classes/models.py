@@ -51,6 +51,9 @@ class Class(models.Model):
 
     content = models.TextField()
 
+    max_participants = models.IntegerField(blank=True, null=True)
+    participants = models.ManyToManyField(User, blank=True, related_name='participant')
+
     def image_url(self):
         """Return image URL."""
         return self.image.url
@@ -66,6 +69,7 @@ class ClassSession(models.Model):
     parent_class = models.ForeignKey(Class)
     session_start = models.DateTimeField()
     session_end = models.DateTimeField()
+    checked_in = models.ManyToManyField(User, blank=True, related_name='checked_in')
 
     def session_day(self):
         """Start date."""
@@ -91,3 +95,4 @@ class ClassSessionNotification(models.Model):
     author = models.ForeignKey(User)
     date_published = models.DateField(default=datetime.date.today)
     session = models.ForeignKey(ClassSession)
+    liked = models.ManyToManyField(User, blank=True, related_name='liked')
