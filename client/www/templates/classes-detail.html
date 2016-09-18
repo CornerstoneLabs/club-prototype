@@ -42,5 +42,24 @@
 		<div class="padding" ng-show="tab==='details'">
 			{{ class.content }}
 		</div>
+
+		<div class="" ng-show="tab==='updates'">
+			<ion-item ng-if="notifications.length === 0">
+				<h2>No notifications.</h2>
+			</ion-item>
+			<div ng-repeat="session in sessions | filter: classFilter | orderBy: 'session_start' | limitTo: 1">
+				<ion-item ng-repeat="article in notifications | filter: 'http://0.0.0.0:8000/class-session/' + session.id + '/'" ui-sref="app.news-detail({ id: article.id })">
+					<h2>{{article.text}}</h2>
+
+					<br/>
+
+					<div class="details--wrapper">
+						<span class="details--item">{{ article.date_published | date: 'dd/MM/yyyy' }}</span>
+
+						<span class="details--item last">{{ article.author }}</span>
+					</div>
+				</ion-item>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

@@ -85,7 +85,6 @@ angular
 			};
 		}
 	])
-
 	.factory('Brand', [
 		'$http',
 		function($http) {
@@ -129,7 +128,6 @@ angular
 			};
 		}
 	])
-
 	.controller('NewsController', function($scope, News, Brand) {
 		$scope.news = News.all();
 		$scope.brand = Brand.get();
@@ -138,11 +136,9 @@ angular
 			$scope.news = News.all();
 		});
 	})
-
 	.controller('NewsDetailController', function($scope, $stateParams, News) {
 		$scope.article = News.get($stateParams.id);
 	})
-
 	.factory('Classes', [
 		'$http',
 		function($http) {
@@ -248,6 +244,62 @@ angular
 		}
 	])
 
+	.factory('ClassSessionNotifications', [
+		'$http',
+		function($http) {
+
+			var ClassSessionNotifications = [];
+
+			function refresh (cb) {
+				var url = "http://0.0.0.0:8000/class-session-notification/";
+				$http
+					.get(url)
+					.then(function (response) {
+						angular.merge(ClassSessionNotifications, response.data);
+					}, function (error) {
+
+					});
+			}
+
+			return {
+				all: function() {
+					refresh();
+
+					return ClassSessionNotifications;
+				},
+
+				remove: function(ClassSessionNotifications) {
+					ClassSessionNotifications.splice(ClassSessionNotifications.indexOf(ClassSessionNotifications), 1);
+				},
+
+				get: function(ClassSessionNotificationsId) {
+					for (var i = 0; i < ClassSessionNotifications.length; i++) {
+						if (ClassSessionNotifications[i].id === parseInt(ClassSessionNotificationsId)) {
+							return ClassSessionNotifications[i];
+						}
+					}
+
+					var holding = {
+						id: ClassSessionNotificationsId
+					};
+
+					ClassSessionNotifications.push(holding);
+
+					refresh();
+
+					return holding;
+				},
+				forClass: function (classId) {
+					refresh();
+
+					return ClassSessionNotifications.filter(function (item) {
+						item.parent_class = classId;
+					})
+				}
+			};
+		}
+	])
+
 	.controller('ClassesController', function($scope, Classes) {
 		function transformDays (classes) {
 			var days = {}
@@ -302,12 +354,14 @@ angular
 		'$cookies',
 		'$cookieStore',
 		'ClassSessions',
-		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore, ClassSessions) {
+		'ClassSessionNotifications',
+		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore, ClassSessions, ClassSessionNotifications) {
 			$scope.class = Classes.get($stateParams.id);
 			$scope.tab = 'updates';
 			$scope.currentUser = {};
 			$scope.sessions = ClassSessions.all();
 			$scope.classFilter = 'http://0.0.0.0:8000/classes/' + $stateParams.id + '/';
+			$scope.notifications = ClassSessionNotifications.all();
 
 			$scope.isParticipating = function () {
 				var result = false;

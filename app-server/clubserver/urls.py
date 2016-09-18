@@ -15,6 +15,7 @@ Including another URLconf
 """
 from brand.viewsets import BrandViewSet
 from classes.viewsets import ClassSessionViewSet
+from classes.viewsets import ClassSessionNotificationViewset
 from classes.viewsets import ClassViewSet
 from classes.viewsets import LocationViewSet
 from clubserver.viewsets import UserViewSet
@@ -37,6 +38,7 @@ router.register(r'classes', ClassViewSet)
 router.register(r'class-session', ClassSessionViewSet)
 router.register(r'locations', LocationViewSet)
 router.register(r'brand', BrandViewSet)
+router.register(r'class-session-notification', ClassSessionNotificationViewset)
 
 
 urlpatterns = [
