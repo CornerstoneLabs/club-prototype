@@ -3,6 +3,7 @@
 		<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
 		<div class="padding">
 			<h2>{{ class.title }}</h2>
+			{{ class.id}}
 		</div>
 		<div class="padding details--wrapper">
 			<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
@@ -12,10 +13,16 @@
 			<span class="details--item last">{{ class.teacher }}</span>
 		</div>
 		<div class="padding">
-			<button class="button button-full button-assertive" ng-click="attend();">
+			<button ng-hide="isParticipating() === true" class="button button-full button-assertive" ng-click="attend();">
   				I'm going to attend.
 			</button>
+
+			<button ng-show="isParticipating() === true" class="button button-full button-assertive" ng-click="checkIn();">
+  				Check in.
+			</button>
 		</div>
+
+		{{ currentUser }}
 
 		<div class="tab-wrapper row">
 			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'updates' }" >

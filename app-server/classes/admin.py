@@ -6,6 +6,7 @@ from classes.models import Class
 from classes.models import Location
 from classes.models import ClassSession
 from classes.models import ClassSessionNotification
+from rest_framework.authtoken.admin import TokenAdmin
 
 
 def pad_class_day(item, loop_date):
@@ -86,3 +87,5 @@ admin.site.register(Class, ClassAdmin)
 admin.site.register(ClassSession, ClassSessionAdmin)
 admin.site.register(Location)
 admin.site.register(ClassSessionNotification)
+
+TokenAdmin.raw_id_fields = ('user',)

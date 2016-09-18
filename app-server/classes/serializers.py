@@ -1,6 +1,5 @@
 """Class serializers."""
 
-
 from rest_framework import serializers
 from classes.models import Class
 from classes.models import ClassSession
@@ -29,6 +28,8 @@ class ClassSerializer(serializers.HyperlinkedModelSerializer):
             'teacher',
             'image_url',
             'content',
+            'max_participants',
+            'participants',
         )
 
 

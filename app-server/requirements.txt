@@ -6,3 +6,4 @@ django-filter
 django-cors-middleware
 django-extensions
 Pillow
+djangorestframework-jwt

@@ -249,6 +249,43 @@ angular
 			$scope.class = Classes.get($stateParams.id);
 
 			$scope.tab = 'updates';
+			$scope.currentUser = {};
+
+			$scope.isParticipating = function () {
+				var result = false;
+
+				angular.forEach($scope.class.participants, function (item) {
+					if (item === 'http://0.0.0.0:8000/users/' + $scope.currentUser.id + '/') {
+						result = true;
+					}
+				});
+
+				return result;
+			};
+
+			var token;
+
+			function currentUser () {
+				var deferred = $q.defer();
+
+				var config = {
+					method: 'GET',
+					url: 'http://0.0.0.0:8000/actions/classes/current-user/',
+					headers: {
+						'X-CSRFToken': $cookies['djangotoken'],
+						'Authorization': 'Bearer ' + token
+					}
+				};
+
+				$http(config)
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (error) {
+						deferred.reject();
+					});
+
+				return deferred.promise;
+			}
 
 			function login () {
 				var deferred = $q.defer();
@@ -261,7 +298,9 @@ angular
 					.post('http://0.0.0.0:8000/' + 'api-token-auth/', user_data, {"Authorization": ""})
 					.success(function(response) {
 						$cookieStore.put('djangotoken', response.token);
-						$http.defaults.headers.common['Authorization'] = 'Token ' + response.token;
+						$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
+
+						token = response.token;
 
 						deferred.resolve(response.token);
 				  });
@@ -269,8 +308,7 @@ angular
 				return deferred.promise;
 			}
 
-			function attend (token) {
-				debugger;
+			function attend () {
 				var config = {
 					method: 'POST',
 					url: 'http://0.0.0.0:8000/actions/classes/add-participant/',
@@ -278,8 +316,8 @@ angular
 						class_id: $stateParams.id
 					},
 					headers: {
-					  'X-CSRFToken': $cookies['djangotoken'],
-					  'Authorization': 'Token ' + token
+						'X-CSRFToken': $cookies['djangotoken'],
+						'Authorization': 'Bearer ' + token
 					}
 				};
 
@@ -287,15 +325,50 @@ angular
 
 				$http(config)
 					.then(function (response) {
+						$scope.class = response.data;
+					}, function (error) {
 						debugger;
+					});
+			}
+
+			function checkIn (classSessionId) {
+				var config = {
+					method: 'POST',
+					url: 'http://0.0.0.0:8000/actions/classes/check-in/',
+					data: {
+						class_session_id: classSessionId
+					},
+					headers: {
+						'X-CSRFToken': $cookies['djangotoken'],
+						'Authorization': 'Bearer ' + token
+					}
+				};
+
+				$http.defaults.headers.common['X-CSRFToken']
+
+				$http(config)
+					.then(function (response) {
+						$scope.class = response.data;
 					}, function (error) {
 						debugger;
 					});
 			}
 
 			$scope.attend = function () {
-				login().then(attend);
+				attend();
 			};
+
+			login()
+				.then(function (response) {
+					currentUser()
+						.then(function (response) {
+							$scope.currentUser = response;
+						}, function (error) {
+							debugger;
+						});
+				}, function (error) {
+					debugger;
+				});
 		}
 	]);
 

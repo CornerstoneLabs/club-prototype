@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from news.viewsets import ArticleViewSet
 from rest_framework import routers
-from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 import classes.views
 
 admin.site.site_header = 'Club Admin'
@@ -41,8 +41,10 @@ router.register(r'brand', BrandViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^actions/classes/current-user/$', classes.views.current_user),
+    url(r'^actions/classes/check-in/$', classes.views.check_in),
     url(r'^actions/classes/add-participant/$', classes.views.add_participant),
-    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
