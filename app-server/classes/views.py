@@ -2,16 +2,14 @@
 
 from classes.models import Class
 from classes.models import ClassSession
-from django.contrib.auth.models import User
+from classes.serializers import ClassSerializer
+from classes.serializers import ClassSessionSerializer
 from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from classes.serializers import ClassSerializer
-from classes.serializers import ClassSessionSerializer
 import json
 
 
@@ -50,6 +48,7 @@ def add_participant(request):
     serializer = ClassSerializer(selected_class, context={'request': request})
     return JsonResponse(serializer.data)
 
+
 # NOTE -- THIS SHOULD NOT BE @csrf_exempt - FIX THE COOKINE PROBLEM IN ANGULAR
 @csrf_exempt
 @api_view(['POST'])
@@ -63,7 +62,7 @@ def check_in(request):
     except Class.DoesNotExist:
         return HttpResponseBadRequest()
 
-    selected_class.participants.add(request.user)
+    selected_class.checked_in.add(request.user)
     selected_class.save()
 
     serializer = ClassSessionSerializer(selected_class, context={'request': request})

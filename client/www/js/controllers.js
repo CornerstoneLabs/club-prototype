@@ -192,6 +192,62 @@ angular
 		}
 	])
 
+	.factory('ClassSessions', [
+		'$http',
+		function($http) {
+
+			var ClassSessions = [];
+
+			function refresh (cb) {
+				var url = "http://0.0.0.0:8000/class-session/";
+				$http
+					.get(url)
+					.then(function (response) {
+						angular.merge(ClassSessions, response.data);
+					}, function (error) {
+
+					});
+			}
+
+			return {
+				all: function() {
+					refresh();
+
+					return ClassSessions;
+				},
+
+				remove: function(ClassSessions) {
+					ClassSessions.splice(ClassSessions.indexOf(ClassSessions), 1);
+				},
+
+				get: function(ClassSessionsId) {
+					for (var i = 0; i < ClassSessions.length; i++) {
+						if (ClassSessions[i].id === parseInt(ClassSessionsId)) {
+							return ClassSessions[i];
+						}
+					}
+
+					var holding = {
+						id: ClassSessionsId
+					};
+
+					ClassSessions.push(holding);
+
+					refresh();
+
+					return holding;
+				},
+				forClass: function (classId) {
+					refresh();
+
+					return ClassSessions.filter(function (item) {
+						item.parent_class = classId;
+					})
+				}
+			};
+		}
+	])
+
 	.controller('ClassesController', function($scope, Classes) {
 		function transformDays (classes) {
 			var days = {}
@@ -245,16 +301,30 @@ angular
 		'$http',
 		'$cookies',
 		'$cookieStore',
-		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore) {
+		'ClassSessions',
+		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore, ClassSessions) {
 			$scope.class = Classes.get($stateParams.id);
-
 			$scope.tab = 'updates';
 			$scope.currentUser = {};
+			$scope.sessions = ClassSessions.all();
+			$scope.classFilter = 'http://0.0.0.0:8000/classes/' + $stateParams.id + '/';
 
 			$scope.isParticipating = function () {
 				var result = false;
 
 				angular.forEach($scope.class.participants, function (item) {
+					if (item === 'http://0.0.0.0:8000/users/' + $scope.currentUser.id + '/') {
+						result = true;
+					}
+				});
+
+				return result;
+			};
+
+			$scope.isCheckedIn = function (session) {
+				var result = false;
+
+				angular.forEach(session.checked_in, function (item) {
 					if (item === 'http://0.0.0.0:8000/users/' + $scope.currentUser.id + '/') {
 						result = true;
 					}
@@ -331,7 +401,8 @@ angular
 					});
 			}
 
-			function checkIn (classSessionId) {
+			$scope.checkIn = function (classSession) {
+				var classSessionId = classSession.id;
 				var config = {
 					method: 'POST',
 					url: 'http://0.0.0.0:8000/actions/classes/check-in/',
@@ -348,7 +419,7 @@ angular
 
 				$http(config)
 					.then(function (response) {
-						$scope.class = response.data;
+						angular.merge(classSession, response.data);
 					}, function (error) {
 						debugger;
 					});

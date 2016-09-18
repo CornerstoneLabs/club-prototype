@@ -41,6 +41,7 @@ class ClassSessionSerializer(serializers.HyperlinkedModelSerializer):
 
         model = ClassSession
         fields = (
+            'id',
             'parent_class',
             'session_start',
             'session_end',

@@ -17,9 +17,16 @@
   				I'm going to attend.
 			</button>
 
-			<button ng-show="isParticipating() === true" class="button button-full button-assertive" ng-click="checkIn();">
-  				Check in.
-			</button>
+			<div ng-show="isParticipating() === true">
+				<span ng-if="(sessions | filter: classFilter | orderBy: 'session_start' | limitTo: 1).length === 0">No sessions.</span>
+				<button ng-hide="isCheckedIn(session) === true" class="button button-full button-assertive" ng-click="checkIn(session);" ng-repeat="session in sessions | filter: classFilter | orderBy: 'session_start' | limitTo: 1">
+	  				Check in.
+				</button>
+
+				<button ng-show="isCheckedIn(session) === true" class="button button-full button-assertive" ng-repeat="session in sessions | filter: classFilter | orderBy: 'session_start' | limitTo: 1">
+	  				You are checked in.
+				</button>
+			</div>
 		</div>
 
 		{{ currentUser }}
