@@ -3,7 +3,6 @@
 		<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
 		<div class="padding">
 			<h2>{{ class.title }}</h2>
-			{{ class.id}}
 		</div>
 		<div class="padding details--wrapper">
 			<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
@@ -29,7 +28,7 @@
 			</div>
 		</div>
 
-		{{ currentUser }}
+		<!--{{ currentUser }}-->
 
 		<div class="tab-wrapper row">
 			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'updates' }" >

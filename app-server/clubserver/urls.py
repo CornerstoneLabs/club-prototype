@@ -41,6 +41,7 @@ router.register(r'brand', BrandViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^actions/classes/notifications/like/$', classes.views.class_session_notification_liked),
     url(r'^actions/classes/current-user/$', classes.views.current_user),
     url(r'^actions/classes/check-in/$', classes.views.check_in),
     url(r'^actions/classes/add-participant/$', classes.views.add_participant),

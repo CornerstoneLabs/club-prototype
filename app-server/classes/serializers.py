@@ -1,9 +1,10 @@
 """Class serializers."""
 
-from rest_framework import serializers
 from classes.models import Class
 from classes.models import ClassSession
+from classes.models import ClassSessionNotification
 from classes.models import Location
+from rest_framework import serializers
 
 
 class ClassSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,6 +47,22 @@ class ClassSessionSerializer(serializers.HyperlinkedModelSerializer):
             'session_start',
             'session_end',
             'checked_in'
+        )
+
+
+class ClassSessionNotificationSerializer(serializers.HyperlinkedModelSerializer):
+    """Class session notification serializer."""
+
+    class Meta:
+        """Meta."""
+
+        model = ClassSessionNotification
+        fields = (
+            'id',
+            'text',
+            'date_published',
+            'session',
+            'liked'
         )
 
 

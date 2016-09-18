@@ -2,8 +2,10 @@
 
 from classes.models import Class
 from classes.models import ClassSession
+from classes.models import ClassSessionNotification
 from classes.serializers import ClassSerializer
 from classes.serializers import ClassSessionSerializer
+from classes.serializers import ClassSessionNotificationSerializer
 from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -66,4 +68,23 @@ def check_in(request):
     selected_class.save()
 
     serializer = ClassSessionSerializer(selected_class, context={'request': request})
+    return JsonResponse(serializer.data)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def class_session_notification_liked(request):
+    """Add the current user as a like to this class."""
+    received_json_data = json.loads(request.body.decode("utf-8"))
+    notification_id = received_json_data['notification_id']
+
+    try:
+        notification = ClassSessionNotification.objects.get(id=notification_id)
+    except Class.DoesNotExist:
+        return HttpResponseBadRequest()
+
+    notification.liked.add(request.user)
+    notification.save()
+
+    serializer = ClassSessionNotificationSerializer(notification, context={'request': request})
     return JsonResponse(serializer.data)
