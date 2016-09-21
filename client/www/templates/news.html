@@ -1,7 +1,7 @@
 <ion-view view-title="News">
 	<ion-content>
 		<ion-list>
-			<img src="http://0.0.0.0:8000{{ brand.image_url }}" style="width: 100%" />
+			<img ng-src="{{ ApplicationSettings.SERVER_URL }}{{ brand.image_url }}" style="width: 100%" />
 
 			<div class="padding">
 				<h2 class="centre">{{ brand.title }}</h2>

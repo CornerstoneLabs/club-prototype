@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<br/>
-		<img src="http://0.0.0.0:8000{{ article.image_url }}" style="width: 100%" />
+		<img ng-src="{{ ApplicationSettings.SERVER_URL }}{{ article.image_url }}" style="width: 100%" />
 		<div class="padding">
 			{{ article.content }}
 		</div>

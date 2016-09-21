@@ -1,6 +1,6 @@
 <ion-view view-title="Class">
 	<ion-content>
-		<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
+		<img ng-src="{{ ApplicationSettings.SERVER_URL }}{{ class.image_url }}" style="width: 100%" />
 		<div class="padding">
 			<h2>{{ class.title }}</h2>
 		</div>
@@ -48,7 +48,7 @@
 				<h2>No notifications.</h2>
 			</ion-item>
 			<div ng-repeat="session in sessions | filter: classFilter | orderBy: 'session_start' | limitTo: 1">
-				<ion-item ng-repeat="article in notifications | filter: 'http://0.0.0.0:8000/class-session/' + session.id + '/'" ui-sref="app.news-detail({ id: article.id })">
+				<ion-item ng-repeat="article in notifications | filter: {{ ApplicationSettings.SERVER_URL }} + '/class-session/' + session.id + '/'" ui-sref="app.news-detail({ id: article.id })">
 					<h2>{{article.text}}</h2>
 
 					<br/>

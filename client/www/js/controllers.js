@@ -195,7 +195,8 @@ angular
 
 	.factory('ClassSessions', [
 		'$http',
-		function($http) {
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
 
 			var ClassSessions = [];
 
@@ -251,7 +252,8 @@ angular
 
 	.factory('ClassSessionNotifications', [
 		'$http',
-		function($http) {
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
 
 			var ClassSessionNotifications = [];
 
@@ -305,7 +307,7 @@ angular
 		}
 	])
 
-	.controller('ClassesController', function($scope, Classes) {
+	.controller('ClassesController', function($scope, Classes, ApplicationSettings) {
 		function transformDays (classes, myclasses) {
 			var days = {};
 			var yourDays = {};
@@ -342,7 +344,7 @@ angular
 					addTo(classItem, days);
 
 					// now do yourdays
-					var currentUserHref = ApplicationSettings.SERVER_URL + '/users/' + $scope.userInfo.id + '/';
+					var currentUserHref = ApplicationSettings.LOCAL_URL + '/users/' + $scope.userInfo.id + '/';
 					if (classItem.participants.indexOf(currentUserHref) !== -1) {
 						addTo(classItem, yourDays);
 					}
@@ -378,19 +380,20 @@ angular
 		'$cookieStore',
 		'ClassSessions',
 		'ClassSessionNotifications',
-		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore, ClassSessions, ClassSessionNotifications) {
+		'ApplicationSettings',
+		function ($q, $scope, $stateParams, Classes, $http, $cookies, $cookieStore, ClassSessions, ClassSessionNotifications, ApplicationSettings) {
 			$scope.class = Classes.get($stateParams.id);
 			$scope.tab = 'updates';
 			$scope.currentUser = {};
 			$scope.sessions = ClassSessions.all();
-			$scope.classFilter = ApplicationSettings.SERVER_URL + '/classes/' + $stateParams.id + '/';
+			$scope.classFilter = ApplicationSettings.LOCAL_URL + '/classes/' + $stateParams.id + '/';
 			$scope.notifications = ClassSessionNotifications.all();
 
 			$scope.isParticipating = function () {
 				var result = false;
 
 				angular.forEach($scope.class.participants, function (item) {
-					if (item === ApplicationSettings.SERVER_URL + '/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/') {
 						result = true;
 					}
 				});
@@ -402,7 +405,7 @@ angular
 				var result = false;
 
 				angular.forEach(session.checked_in, function (item) {
-					if (item === ApplicationSettings.SERVER_URL + '/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/') {
 						result = true;
 					}
 				});

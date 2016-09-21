@@ -11,7 +11,7 @@ angular
 		'ngCookies',
 		'app.config'
 	])
-	.run(function($ionicPlatform) {
+	.run(function($ionicPlatform, ApplicationSettings, $rootScope) {
 		$ionicPlatform.ready(function() {
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 			// for form inputs)
@@ -24,6 +24,8 @@ angular
 				// org.apache.cordova.statusbar required
 				StatusBar.styleDefault();
 			}
+
+			$rootScope.ApplicationSettings = ApplicationSettings;
 		});
 	})
 	.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
