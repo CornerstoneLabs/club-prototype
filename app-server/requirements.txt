@@ -7,3 +7,4 @@ django-cors-middleware
 django-extensions
 Pillow
 djangorestframework-jwt
+python-dotenv

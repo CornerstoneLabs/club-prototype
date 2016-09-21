@@ -8,7 +8,8 @@ angular
 	.module('starter', [
 		'ionic',
 		'starter.controllers',
-		'ngCookies'
+		'ngCookies',
+		'app.config'
 	])
 	.run(function($ionicPlatform) {
 		$ionicPlatform.ready(function() {

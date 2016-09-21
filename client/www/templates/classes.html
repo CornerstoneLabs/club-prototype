@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<ion-list>
-			<div ng-repeat="day in days">
+			<div ng-repeat="day in days[tab]">
 				<div class="day-stripe">{{ day.name }}</div>
 				<div ng-repeat="class in day.classes" ui-sref="app.classes-detail({ id: class.id })">
 					<img src="http://0.0.0.0:8000{{ class.image_url }}" style="width: 100%" />
@@ -25,6 +25,8 @@
 					</div>
 				</div>
 			</div>
+
+
 		</ion-list>
 	</ion-content>
 </ion-view>

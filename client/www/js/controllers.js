@@ -1,5 +1,7 @@
 angular
-	.module('starter.controllers', [])
+	.module('starter.controllers', [
+		'app.config'
+	])
 	.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 		// With the new view caching in Ionic, Controllers are only called
@@ -42,12 +44,13 @@ angular
 	})
 	.factory('News', [
 		'$http',
-		function($http) {
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
 
 			var news = [];
 
 			function refresh (cb) {
-				var url = "http://0.0.0.0:8000/articles/";
+				var url = ApplicationSettings.SERVER_URL + "/articles/";
 				$http
 					.get(url)
 					.then(function (response) {
@@ -87,12 +90,13 @@ angular
 	])
 	.factory('Brand', [
 		'$http',
-		function($http) {
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
 
 			var brand = [];
 
 			function refresh (cb) {
-				var url = "http://0.0.0.0:8000/brand/";
+				var url = ApplicationSettings.SERVER_URL + "/brand/";
 				$http
 					.get(url)
 					.then(function (response) {
@@ -141,12 +145,13 @@ angular
 	})
 	.factory('Classes', [
 		'$http',
-		function($http) {
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
 
 			var classes = [];
 
 			function refresh (cb) {
-				var url = "http://0.0.0.0:8000/classes/";
+				var url = ApplicationSettings.SERVER_URL + "/classes/";
 				$http
 					.get(url)
 					.then(function (response) {
@@ -195,7 +200,7 @@ angular
 			var ClassSessions = [];
 
 			function refresh (cb) {
-				var url = "http://0.0.0.0:8000/class-session/";
+				var url = ApplicationSettings.SERVER_URL + "/class-session/";
 				$http
 					.get(url)
 					.then(function (response) {
@@ -251,7 +256,7 @@ angular
 			var ClassSessionNotifications = [];
 
 			function refresh (cb) {
-				var url = "http://0.0.0.0:8000/class-session-notification/";
+				var url = ApplicationSettings.SERVER_URL + "/class-session-notification/";
 				$http
 					.get(url)
 					.then(function (response) {
@@ -301,8 +306,9 @@ angular
 	])
 
 	.controller('ClassesController', function($scope, Classes) {
-		function transformDays (classes) {
-			var days = {}
+		function transformDays (classes, myclasses) {
+			var days = {};
+			var yourDays = {};
 			var dayName = [
 				'Monday',
 				'Tuesday',
@@ -313,22 +319,39 @@ angular
 				'Sunday'
 			];
 
+			$scope.userInfo = {
+				id: 1
+			};
+
 			classes
 				.forEach(function (classItem) {
-					if (angular.isUndefined(days['k' + classItem.day])) {
-						days['k' + classItem.day] = {
-							name: dayName[classItem.day]
-						};
+					function addTo(classItem, days) {
+						if (angular.isUndefined(days['k' + classItem.day])) {
+							days['k' + classItem.day] = {
+								name: dayName[classItem.day]
+							};
+						}
+
+						if (angular.isUndefined(days['k' + classItem.day].classes)) {
+							days['k' + classItem.day].classes = [];
+						}
+
+						days['k' + classItem.day].classes.push(classItem);
 					}
 
-					if (angular.isUndefined(days['k' + classItem.day].classes)) {
-						days['k' + classItem.day].classes = [];
-					}
+					addTo(classItem, days);
 
-					days['k' + classItem.day].classes.push(classItem);
+					// now do yourdays
+					var currentUserHref = ApplicationSettings.SERVER_URL + '/users/' + $scope.userInfo.id + '/';
+					if (classItem.participants.indexOf(currentUserHref) !== -1) {
+						addTo(classItem, yourDays);
+					}
 				});
 
-			return days;
+			return {
+				all: days,
+				your: yourDays
+			};
 		}
 
 		function reload ($scope) {
@@ -360,14 +383,14 @@ angular
 			$scope.tab = 'updates';
 			$scope.currentUser = {};
 			$scope.sessions = ClassSessions.all();
-			$scope.classFilter = 'http://0.0.0.0:8000/classes/' + $stateParams.id + '/';
+			$scope.classFilter = ApplicationSettings.SERVER_URL + '/classes/' + $stateParams.id + '/';
 			$scope.notifications = ClassSessionNotifications.all();
 
 			$scope.isParticipating = function () {
 				var result = false;
 
 				angular.forEach($scope.class.participants, function (item) {
-					if (item === 'http://0.0.0.0:8000/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.SERVER_URL + '/users/' + $scope.currentUser.id + '/') {
 						result = true;
 					}
 				});
@@ -379,7 +402,7 @@ angular
 				var result = false;
 
 				angular.forEach(session.checked_in, function (item) {
-					if (item === 'http://0.0.0.0:8000/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.SERVER_URL + '/users/' + $scope.currentUser.id + '/') {
 						result = true;
 					}
 				});
@@ -394,7 +417,7 @@ angular
 
 				var config = {
 					method: 'GET',
-					url: 'http://0.0.0.0:8000/actions/classes/current-user/',
+					url: ApplicationSettings.SERVER_URL + '/actions/classes/current-user/',
 					headers: {
 						'X-CSRFToken': $cookies['djangotoken'],
 						'Authorization': 'Bearer ' + token
@@ -419,7 +442,7 @@ angular
 				};
 
 				$http
-					.post('http://0.0.0.0:8000/' + 'api-token-auth/', user_data, {"Authorization": ""})
+					.post(ApplicationSettings.SERVER_URL + '/' + 'api-token-auth/', user_data, {"Authorization": ""})
 					.success(function(response) {
 						$cookieStore.put('djangotoken', response.token);
 						$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
@@ -435,7 +458,7 @@ angular
 			function attend () {
 				var config = {
 					method: 'POST',
-					url: 'http://0.0.0.0:8000/actions/classes/add-participant/',
+					url: ApplicationSettings.SERVER_URL + '/actions/classes/add-participant/',
 					data: {
 						class_id: $stateParams.id
 					},
@@ -459,7 +482,7 @@ angular
 				var classSessionId = classSession.id;
 				var config = {
 					method: 'POST',
-					url: 'http://0.0.0.0:8000/actions/classes/check-in/',
+					url: ApplicationSettings.SERVER_URL + '/actions/classes/check-in/',
 					data: {
 						class_session_id: classSessionId
 					},
