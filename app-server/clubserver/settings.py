@@ -148,7 +148,7 @@ USE_TZ = True
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/images/'
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT')
 MEDIA_URL = '/images/'
 
 REST_FRAMEWORK = {
