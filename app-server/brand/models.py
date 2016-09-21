@@ -9,7 +9,7 @@ class Brand(models.Model):
     title = models.CharField(max_length=2000)
     phone = models.CharField(max_length=2000)
     email = models.CharField(max_length=2000)
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         """Default item."""

@@ -49,7 +49,7 @@ class Class(models.Model):
     sessions_start = models.DateField(blank=True, null=True)
     sessions_end = models.DateField(blank=True, null=True)
 
-    content = models.TextField()
+    content = models.TextField(blank=True, null=True)
 
     max_participants = models.IntegerField(blank=True, null=True)
     participants = models.ManyToManyField(User, blank=True, related_name='participant')

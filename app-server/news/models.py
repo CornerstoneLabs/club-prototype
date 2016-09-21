@@ -12,7 +12,7 @@ class Article(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User)
     date_published = models.DateField(default=datetime.datetime.today)
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
 
     def image_url(self):
         """Return image URL."""
