@@ -56,7 +56,10 @@ class Class(models.Model):
 
     def image_url(self):
         """Return image URL."""
-        return self.image.url
+        if self.image and self.image.url:
+            return self.image.url
+        else:
+            return ''
 
     def __str__(self):
         """Return title."""
