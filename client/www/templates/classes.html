@@ -12,7 +12,8 @@
 			<div ng-repeat="day in days[tab]">
 				<div class="day-stripe">{{ day.name }}</div>
 				<div ng-repeat="class in day.classes" ui-sref="app.classes-detail({ id: class.id })">
-					<img ng-src="{{ ApplicationSettings.SERVER_URL }}{{ class.image_url }}" style="width: 100%" />
+					<img ng-if="class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}{{ class.image_url }}" style="width: 100%" />
+					<img ng-if="!class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}/images/background.jpeg" style="width: 100%" />
 					<div class="padding">
 						<h2>{{ class.title }}</h2>
 					</div>

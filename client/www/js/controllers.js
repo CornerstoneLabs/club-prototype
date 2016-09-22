@@ -145,8 +145,9 @@ angular
 	})
 	.factory('Classes', [
 		'$http',
+		'$timeout',
 		'ApplicationSettings',
-		function($http, ApplicationSettings) {
+		function($http, $timeout, ApplicationSettings) {
 
 			var classes = [];
 
@@ -155,7 +156,11 @@ angular
 				$http
 					.get(url)
 					.then(function (response) {
-						angular.merge(classes, response.data);
+						$timeout(function () {
+							angular.forEach(response.data, function (item) {
+								classes.push(item);
+							});
+						});
 					}, function (error) {
 
 					});
@@ -360,6 +365,10 @@ angular
 			$scope.classes = Classes.all();
 			$scope.days = transformDays($scope.classes);
 		}
+
+		$scope.$watchCollection('classes', function () {
+			$scope.days = transformDays($scope.classes);
+		});
 
 		$scope.$on('$ionicView.enter', function() {
 			reload($scope);
