@@ -43,7 +43,7 @@ class Class(models.Model):
     title = models.CharField(max_length=1000)
     teacher = models.ForeignKey(User)
 
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
 
     recurring = models.BooleanField(default=True)
     sessions_start = models.DateField(blank=True, null=True)
