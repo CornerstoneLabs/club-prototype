@@ -15,7 +15,7 @@ DAY_NAME = [
 ]
 DAY_PICKER = [(i, DAY_NAME[i]) for i in range(7)]
 HOURS_PICKER = [(i, str(i).rjust(2, '0')) for i in range(24)]
-MINUTES_PICKER = [(i, str(i).rjust(2, '0')) for i in range(0, 60, 10)]
+MINUTES_PICKER = [(i, str(i).rjust(2, '0')) for i in range(0, 60, 15)]
 
 
 class Location(models.Model):
