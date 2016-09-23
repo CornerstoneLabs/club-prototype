@@ -107,10 +107,10 @@
 }
 
 .base-image--wrapper:after {
+	content: '';
 	display: block;
 	/* 16:9 ratio */
 	padding-top: 56.25%;
-	content: '';
 }
 
 .fade-transition {
