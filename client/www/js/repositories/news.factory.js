@@ -1,0 +1,50 @@
+angular
+	.module('repositories.news.factory', [])
+	.factory('News', [
+		'$http',
+		'ApplicationSettings',
+		function($http, ApplicationSettings) {
+
+			var news = [];
+
+			function refresh () {
+				var url = ApplicationSettings.SERVER_URL + "/articles/";
+				$http
+					.get(url)
+					.then(function (response) {
+						angular.merge(news, response.data);
+					}, function (error) {
+
+					});
+			}
+
+			return {
+				all: function() {
+					refresh();
+
+					return news;
+				},
+
+				remove: function(news) {
+					news.splice(news.indexOf(news), 1);
+				},
+
+				get: function(newsId) {
+					for (var i = 0; i < news.length; i++) {
+						if (news[i].id === parseInt(newsId)) {
+							return news[i];
+						}
+					}
+
+					var holding = {
+						id: newsId
+					};
+					news.push(holding);
+
+					refresh();
+
+					return holding;
+				}
+			};
+		}
+	]);
