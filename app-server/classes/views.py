@@ -71,6 +71,32 @@ def check_in(request):
     return JsonResponse(serializer.data)
 
 
+def check_out_process(user, class_session_id):
+    """Undo your check in process."""
+    try:
+        selected_class = ClassSession.objects.get(id=class_session_id)
+    except Class.DoesNotExist:
+        return HttpResponseBadRequest()
+
+    selected_class.checked_in.remove(user)
+    selected_class.save()
+
+    return selected_class
+
+
+@csrf_exempt
+@api_view(['POST'])
+def check_out(request):
+    """Undo your check in."""
+    received_json_data = json.loads(request.body.decode("utf-8"))
+    class_session_id = received_json_data['class_session_id']
+
+    selected_class = check_out_process(request.user, class_session_id)
+
+    serializer = ClassSessionSerializer(selected_class, context={'request': request})
+    return JsonResponse(serializer.data)
+
+
 @csrf_exempt
 @api_view(['POST'])
 def class_session_notification_liked(request):
