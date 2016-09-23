@@ -11,9 +11,8 @@
 		<ion-list>
 			<div ng-repeat="day in days[tab]">
 				<div class="day-stripe">{{ day.name }}</div>
-				<div ng-repeat="class in day.classes" ui-sref="app.classes-detail({ id: class.id })">
-					<img ng-if="class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}{{ class.image_url }}" style="width: 100%" />
-					<img ng-if="!class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}/images/background.jpeg" style="width: 100%" />
+				<div ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+					<base-image src="{{ class.image_url }}"></base-image>
 					<div class="padding">
 						<h2>{{ class.title }}</h2>
 					</div>
@@ -26,8 +25,6 @@
 					</div>
 				</div>
 			</div>
-
-
 		</ion-list>
 	</ion-content>
 </ion-view>

@@ -1,7 +1,9 @@
 angular
 	.module('starter.controllers', [
-		'app.config'
+		'app.config',
+		'components.base-image'
 	])
+
 	.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 		// With the new view caching in Ionic, Controllers are only called
@@ -157,6 +159,19 @@ angular
 					.get(url)
 					.then(function (response) {
 						$timeout(function () {
+							//
+							// Order by date
+							//
+							response.data.sort(function (a,b) {
+								if (a.day < b.day)
+									return -1;
+
+								if (a.day > b.day)
+									return 1;
+
+								return 0;
+							});
+
 							angular.forEach(response.data, function (item) {
 								classes.push(item);
 							});

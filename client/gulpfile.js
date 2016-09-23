@@ -9,12 +9,21 @@ var sh = require('shelljs');
 var replace = require('gulp-replace-task');
 var args = require('yargs').argv;
 var fs = require('fs');
+var inject = require('gulp-inject');
+
+gulp.task('index', function () {
+	var target = gulp.src('./www/index.html');
+	var sources = gulp.src(['./www/js/**/*.js'], {read: false});
+
+	return target.pipe(inject(sources, {relative: true}))
+		.pipe(gulp.dest('./www'));
+});
 
 var paths = {
 	sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'index']);
 
 gulp.task('sass', function(done) {
 	gulp.src('./scss/ionic.app.scss')
@@ -30,7 +39,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
-	gulp.watch(paths.sass, ['sass']);
+	gulp.watch(paths.sass, ['sass', 'index']);
 });
 
 gulp.task('install', ['git-check'], function() {
