@@ -1,48 +1,9 @@
 angular
 	.module('starter.controllers', [
-		'app.config'
+		'app.config',
+		'components.base-image'
 	])
-	.directive('baseImage', [
-		'ApplicationSettings',
-			function baseImage (ApplicationSettings) {
-			return {
-				restrict: 'AE',
-				scope: {
-					src: '@'
-				},
-				templateUrl: 'templates/components/image-base.html',
-				link: function (scope, element, attr) {
-					scope.show = false;
-					scope.backgroundImage = {};
 
-					function getUrl () {
-						 scope.targetUrl = ApplicationSettings.SERVER_URL + scope.src;
-
-						 return scope.targetUrl;
-					}
-
-					function imageLoaded () {
-						scope.backgroundImage = {
-							'background-image': 'url("' + scope.targetUrl + '");'
-						};
-						scope.show = true;
-					}
-
-					function onChange () {
-						if (scope.src === '') {
-							return;
-						}
-
-						var image = new Image();
-						image.src = getUrl();
-						image.onload = imageLoaded;
-					}
-
-					scope.$watch('src', onChange);
-				}
-			};
-		}
-	])
 	.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 		// With the new view caching in Ionic, Controllers are only called
@@ -198,6 +159,19 @@ angular
 					.get(url)
 					.then(function (response) {
 						$timeout(function () {
+							//
+							// Order by date
+							//
+							response.data.sort(function (a,b) {
+								if (a.day < b.day)
+									return -1;
+
+								if (a.day > b.day)
+									return 1;
+
+								return 0;
+							});
+
 							angular.forEach(response.data, function (item) {
 								classes.push(item);
 							});
