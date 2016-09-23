@@ -1,7 +1,6 @@
 <ion-view view-title="Class">
 	<ion-content overflow-scroll="true">
-		<img ng-if="class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}{{ class.image_url }}" style="width: 100%" />
-		<img ng-if="!class.image_url" ng-src="{{ ApplicationSettings.SERVER_URL }}/images/background.jpeg" style="width: 100%" />
+		<base-image src="{{ class.image_url }}"></base-image>
 		<div class="padding">
 			<h2>{{ class.title }}</h2>
 		</div>

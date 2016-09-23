@@ -2,6 +2,47 @@ angular
 	.module('starter.controllers', [
 		'app.config'
 	])
+	.directive('baseImage', [
+		'ApplicationSettings',
+			function baseImage (ApplicationSettings) {
+			return {
+				restrict: 'AE',
+				scope: {
+					src: '@'
+				},
+				templateUrl: 'templates/components/image-base.html',
+				link: function (scope, element, attr) {
+					scope.show = false;
+					scope.backgroundImage = {};
+
+					function getUrl () {
+						 scope.targetUrl = ApplicationSettings.SERVER_URL + scope.src;
+
+						 return scope.targetUrl;
+					}
+
+					function imageLoaded () {
+						scope.backgroundImage = {
+							'background-image': 'url("' + scope.targetUrl + '");'
+						};
+						scope.show = true;
+					}
+
+					function onChange () {
+						if (scope.src === '') {
+							return;
+						}
+
+						var image = new Image();
+						image.src = getUrl();
+						image.onload = imageLoaded;
+					}
+
+					scope.$watch('src', onChange);
+				}
+			};
+		}
+	])
 	.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 		// With the new view caching in Ionic, Controllers are only called

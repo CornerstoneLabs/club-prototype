@@ -19,4 +19,4 @@ class Article(models.Model):
         if self.image and self.image.url:
             return self.image.url
         else:
-            return ''
+            return '/images/background.jpeg'

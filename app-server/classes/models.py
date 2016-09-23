@@ -59,7 +59,7 @@ class Class(models.Model):
         if self.image and self.image.url:
             return self.image.url
         else:
-            return ''
+            return '/images/background.jpeg'
 
     def __str__(self):
         """Return title."""
