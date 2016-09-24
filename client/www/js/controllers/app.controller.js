@@ -18,8 +18,8 @@ angular
 				$http
 					.post(ApplicationSettings.SERVER_URL + '/' + 'api-token-auth/', user_data, {"Authorization": ""})
 					.then(function(response) {
-						$cookieStore.put('djangotoken', response.token);
-						$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.token;
+						$cookieStore.put('djangotoken', response.data.token);
+						$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
 
 						$rootScope.token = response.data.token;
 						$window.localStorage['AUTHENTICATION_TOKEN'] = response.data.token;
