@@ -2,12 +2,13 @@ angular
 	.module('repositories.class-sessions.factory', [])
 	.factory('ClassSessions', [
 		'$http',
+		'$rootScope',
 		'ApplicationSettings',
-		function($http, ApplicationSettings) {
+		function($http, $rootScope, ApplicationSettings) {
 
 			var ClassSessions = [];
 
-			function refresh (cb) {
+			function refresh () {
 				var url = ApplicationSettings.SERVER_URL + "/class-session/";
 				$http
 					.get(url)
@@ -17,6 +18,8 @@ angular
 
 					});
 			}
+
+			$rootScope.$on('reload', refresh);
 
 			return {
 				all: function() {
@@ -51,7 +54,7 @@ angular
 
 					return ClassSessions.filter(function (item) {
 						item.parent_class = classId;
-					})
+					});
 				}
 			};
 		}

@@ -2,8 +2,9 @@ angular
 	.module('repositories.news.factory', [])
 	.factory('News', [
 		'$http',
+		'$rootScope',
 		'ApplicationSettings',
-		function($http, ApplicationSettings) {
+		function($http, $rootScope, ApplicationSettings) {
 
 			var news = [];
 
@@ -17,6 +18,8 @@ angular
 
 					});
 			}
+
+			$rootScope.$on('reload', refresh);
 
 			return {
 				all: function() {

@@ -24,6 +24,8 @@ angular
 						$rootScope.token = response.data.token;
 						$window.localStorage['AUTHENTICATION_TOKEN'] = response.data.token;
 
+						$rootScope.$broadcast('reload');
+
 						deferred.resolve(response.data.token);
 					}, function () {
 						$rootScope.$broadcast('authentication:unauthorized:currentuser');

@@ -2,12 +2,13 @@ angular
 	.module('repositories.class-session-notification.factory', [])
 	.factory('ClassSessionNotifications', [
 		'$http',
+		'$rootScope',
 		'ApplicationSettings',
-		function($http, ApplicationSettings) {
+		function($http, $rootScope, ApplicationSettings) {
 
 			var ClassSessionNotifications = [];
 
-			function refresh (cb) {
+			function refresh () {
 				var url = ApplicationSettings.SERVER_URL + "/class-session-notification/";
 				$http
 					.get(url)
@@ -17,6 +18,8 @@ angular
 
 					});
 			}
+
+			$rootScope.$on('reload', refresh);
 
 			return {
 				all: function() {
@@ -52,7 +55,7 @@ angular
 
 					return ClassSessionNotifications.filter(function (item) {
 						item.parent_class = classId;
-					})
+					});
 				}
 			};
 		}
