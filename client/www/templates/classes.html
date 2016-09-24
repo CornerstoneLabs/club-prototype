@@ -8,8 +8,27 @@
 				<button class="tab-wrapper--button" ng-click="tab='your'">Your Classes</button>
 			</div>
 		</div>
-		<ion-list>
-			<div ng-repeat="day in days[tab]">
+		<ion-list ng-show="tab === 'all'">
+			<div ng-repeat="day in days['all']">
+				<div class="day-stripe">{{ day.name }}</div>
+				<div ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+					<base-image src="{{ class.image_url }}"></base-image>
+					<div class="padding">
+						<h2>{{ class.title }}</h2>
+					</div>
+					<div class="padding details--wrapper">
+						<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
+
+						<span class="details--item">{{ class.location }}</span>
+
+						<span class="details--item last">{{ class.teacher }}</span>
+					</div>
+				</div>
+			</div>
+		</ion-list>
+
+		<ion-list ng-show="tab === 'your'">
+			<div ng-repeat="day in days['your']">
 				<div class="day-stripe">{{ day.name }}</div>
 				<div ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
 					<base-image src="{{ class.image_url }}"></base-image>

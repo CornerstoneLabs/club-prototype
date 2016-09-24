@@ -14,10 +14,6 @@ angular
 				'Sunday'
 			];
 
-			$scope.userInfo = {
-				id: 1
-			};
-
 			classes
 				.forEach(function (classItem) {
 					function addTo(classItem, days) {
@@ -37,7 +33,7 @@ angular
 					addTo(classItem, days);
 
 					// now do yourdays
-					var currentUserHref = ApplicationSettings.LOCAL_URL + '/users/' + $scope.userInfo.id + '/';
+					var currentUserHref = ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/';
 					if (classItem.participants.indexOf(currentUserHref) !== -1) {
 						addTo(classItem, yourDays);
 					}

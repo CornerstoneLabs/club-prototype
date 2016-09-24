@@ -2,12 +2,13 @@ angular
 	.module('repositories.brand.factory', [])
 	.factory('Brand', [
 		'$http',
+		'$rootScope',
 		'ApplicationSettings',
-		function($http, ApplicationSettings) {
+		function($http, $rootScope, ApplicationSettings) {
 
 			var brand = [];
 
-			function refresh (cb) {
+			function refresh () {
 				var url = ApplicationSettings.SERVER_URL + "/brand/";
 				$http
 					.get(url)
@@ -17,6 +18,8 @@ angular
 
 					});
 			}
+
+			$rootScope.$on('reload', refresh);
 
 			return {
 				all: function() {

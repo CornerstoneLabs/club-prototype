@@ -3,12 +3,14 @@ angular
 	.factory('Classes', [
 		'$http',
 		'$timeout',
+		'$rootScope',
 		'ApplicationSettings',
-		function($http, $timeout, ApplicationSettings) {
+		function($http, $timeout, $rootScope, ApplicationSettings) {
 
 			var classes = [];
 
-			function refresh (cb) {
+			function refresh () {
+				console.log('refreshing classes');
 				var url = ApplicationSettings.SERVER_URL + "/classes/";
 				$http
 					.get(url)
@@ -35,6 +37,8 @@ angular
 
 					});
 			}
+
+			$rootScope.$on('reload', refresh);
 
 			return {
 				all: function() {
