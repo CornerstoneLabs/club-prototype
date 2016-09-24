@@ -18,6 +18,10 @@
 	text-align: center;
 }
 
+.tab-wrapper--tab:active {
+
+}
+
 .tab-wrapper--button {
 	background: #fff;
 	border: none;

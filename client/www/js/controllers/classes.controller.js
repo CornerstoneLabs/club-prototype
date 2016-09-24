@@ -58,6 +58,10 @@ angular
 			reload($scope);
 		});
 
+		$scope.$on('reloaded', function () {
+			$scope.days = transformDays($scope.classes);
+		});
+
 		$scope.tab = 'all';
 
 		reload($scope);

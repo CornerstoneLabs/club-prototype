@@ -32,9 +32,11 @@ angular
 							angular.forEach(response.data, function (item) {
 								classes.push(item);
 							});
+
+							$rootScope.$broadcast('reloaded');
 						});
 					}, function (error) {
-
+						console.log(error);
 					});
 			}
 
