@@ -30,7 +30,22 @@ angular
 							});
 
 							angular.forEach(response.data, function (item) {
-								classes.push(item);
+								//
+								// Matt this is where we set the background image, might want to think about
+								// how we do a cycling background image when the list
+								// gets transformed into day blocks
+								//
+								if (item.image_url === '') {
+									item.image_url = '/images/background.jpeg';
+								}
+
+								var count = classes.filter(function (filterItem) {
+									return (filterItem.id === item.id);
+								}).length;
+
+								if (count === 0) {
+									classes.push(item);
+								}
 							});
 
 							$rootScope.$broadcast('reloaded');
