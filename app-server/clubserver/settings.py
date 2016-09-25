@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'classes',
     'news',
     'brand',
+    'clubserver',
     'django_extensions',
     'rest_framework.authtoken',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -196,3 +198,7 @@ JWT_AUTH = {
 
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
+
+CRON_CLASSES = [
+    'clubserver.cron_tasks.PadSessionsJob'
+]
