@@ -15,6 +15,8 @@ angular
 					'password': password
 				};
 
+				$window.localStorage['AUTHENTICATION_CREDENTIALS'] = JSON.stringify(user_data);
+
 				$http
 					.post(ApplicationSettings.SERVER_URL + '/' + 'api-token-auth/', user_data, {"Authorization": ""})
 					.then(function(response) {
@@ -146,6 +148,12 @@ angular
 			$rootScope.$on('authentication:unauthorized:currentuser', $scope.login);
 
 			$rootScope.$watch('token', onTokenChange);
+
+			if (angular.isDefined($window.localStorage['AUTHENTICATION_CREDENTIALS'])) {
+				var userData = JSON.parse($window.localStorage['AUTHENTICATION_CREDENTIALS']);
+
+				login(userData.username, userData.password);
+			}
 
 			//
 			// check for saved token
