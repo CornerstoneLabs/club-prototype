@@ -34,7 +34,7 @@ angular
 
 					// now do yourdays
 					var currentUserHref = ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/';
-					if (classItem.participants.indexOf(currentUserHref) !== -1) {
+					if (classItem.participants && classItem.participants.indexOf(currentUserHref) !== -1) {
 						addTo(classItem, yourDays);
 					}
 				});

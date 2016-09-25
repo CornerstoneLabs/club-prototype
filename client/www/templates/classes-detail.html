@@ -12,6 +12,10 @@
 			<span class="details--item last">{{ class.teacher }}</span>
 		</div>
 		<div class="padding">
+			<button ng-show="isParticipating() === true" class="button button-full" disabled="disabled">
+  				You are attending.
+			</button>
+
 			<button ng-hide="isParticipating() === true" class="button button-full button-assertive" ng-click="attend();">
   				I'm going to attend.
 			</button>

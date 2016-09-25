@@ -15,6 +15,8 @@ angular
 					'password': password
 				};
 
+				$window.localStorage['AUTHENTICATION_CREDENTIALS'] = JSON.stringify(user_data);
+
 				$http
 					.post(ApplicationSettings.SERVER_URL + '/' + 'api-token-auth/', user_data, {"Authorization": ""})
 					.then(function(response) {
@@ -74,6 +76,7 @@ angular
 		}
 	])
 	.controller('AppCtrl', [
+		'$cookieStore',
 		'$scope',
 		'$ionicModal',
 		'$rootScope',
@@ -81,6 +84,7 @@ angular
 		'login',
 		'currentUser',
 		function(
+			$cookieStore,
 			$scope,
 			$ionicModal,
 			$rootScope,
@@ -145,10 +149,17 @@ angular
 
 			$rootScope.$watch('token', onTokenChange);
 
+			if (angular.isDefined($window.localStorage['AUTHENTICATION_CREDENTIALS'])) {
+				var userData = JSON.parse($window.localStorage['AUTHENTICATION_CREDENTIALS']);
+
+				login(userData.username, userData.password);
+			}
+
 			//
 			// check for saved token
 			if (angular.isDefined($window.localStorage['AUTHENTICATION_TOKEN'])) {
 				$rootScope.token = $window.localStorage['AUTHENTICATION_TOKEN'];
+				$cookieStore.put('djangotoken', $rootScope.token);
 			}
 		}
 	]);
