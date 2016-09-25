@@ -27,7 +27,6 @@ angular
 		) {
 			$scope.class = Classes.get($stateParams.id);
 			$scope.tab = 'updates';
-			$scope.currentUser = {};
 			$scope.sessions = ClassSessions.all();
 			$scope.classFilter = ApplicationSettings.LOCAL_URL + '/classes/' + $stateParams.id + '/';
 			$scope.notifications = ClassSessionNotifications.all();
@@ -36,7 +35,7 @@ angular
 				var result = false;
 
 				angular.forEach($scope.class.participants, function (item) {
-					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $rootScope.currentUser.id + '/') {
 						result = true;
 					}
 				});
@@ -48,7 +47,7 @@ angular
 				var result = false;
 
 				angular.forEach(session.checked_in, function (item) {
-					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $scope.currentUser.id + '/') {
+					if (item === ApplicationSettings.LOCAL_URL + '/users/' + $rootScope.currentUser.id + '/') {
 						result = true;
 					}
 				});

@@ -74,6 +74,7 @@ angular
 		}
 	])
 	.controller('AppCtrl', [
+		'$cookieStore',
 		'$scope',
 		'$ionicModal',
 		'$rootScope',
@@ -81,6 +82,7 @@ angular
 		'login',
 		'currentUser',
 		function(
+			$cookieStore,
 			$scope,
 			$ionicModal,
 			$rootScope,
@@ -149,6 +151,7 @@ angular
 			// check for saved token
 			if (angular.isDefined($window.localStorage['AUTHENTICATION_TOKEN'])) {
 				$rootScope.token = $window.localStorage['AUTHENTICATION_TOKEN'];
+				$cookieStore.put('djangotoken', $rootScope.token);
 			}
 		}
 	]);
