@@ -103,11 +103,21 @@ angular
 			$scope.loginData = {};
 
 			// Create the login modal that we will use later
-			$ionicModal.fromTemplateUrl('templates/login.html', {
-				scope: $scope
-			}).then(function(modal) {
-				$scope.modal = modal;
-			});
+			$ionicModal
+				.fromTemplateUrl('templates/login.html', {
+					scope: $scope
+				})
+				.then(function(modal) {
+					$scope.modal = modal;
+				});
+
+			$ionicModal
+				.fromTemplateUrl('templates/forms/news/news-add.html', {
+					scope: $scope
+				})
+				.then(function(modal) {
+					$scope.newsAdd = modal;
+				});
 
 			// Triggered in the login modal to close it
 			$scope.closeLogin = function() {
@@ -122,6 +132,14 @@ angular
 			$scope.logout = function () {
 				$scope.token = null;
 				$scope.currentUser = null;
+			};
+
+			$scope.newsAddClick = function () {
+				$scope.newsAdd.show();
+			};
+
+			$scope.newsCloseClick = function () {
+				$scope.newsAdd.hide();
 			};
 
 			// Perform the login action when the user submits the login form

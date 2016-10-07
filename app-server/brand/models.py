@@ -1,6 +1,7 @@
 """This is where we put all the bits for the brand."""
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Brand(models.Model):
@@ -10,6 +11,9 @@ class Brand(models.Model):
     phone = models.CharField(max_length=2000)
     email = models.CharField(max_length=2000)
     image = models.ImageField(blank=True, null=True)
+    participants = models.ManyToManyField(User, blank=True, related_name='brand_participant')
+    admins = models.ManyToManyField(User, blank=True, related_name='brand_admin')
+    validated = models.ManyToManyField(User, blank=True, related_name='brand_validated')
 
     def __str__(self):
         """Default item."""

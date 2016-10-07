@@ -85,7 +85,7 @@ angular
 			});
 
 			// if none of the above states are matched, use this as the fallback
-			$urlRouterProvider.otherwise('/app/news/');
+		$urlRouterProvider.otherwise('/app/news/');
 	})
 	.filter('numberFixedLen', function () {
 		return function (n, len) {

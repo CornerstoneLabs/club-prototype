@@ -79,6 +79,10 @@
 	border-bottom: 0;
 }
 
+.bar-assertive .button {
+	border-color: #d0021b;
+}
+
 /**
  * stripe
  */
