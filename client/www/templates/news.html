@@ -15,6 +15,7 @@
 			</div>
 
 			<ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
+				<span style="float:right;" ng-if="!article.published">Draft</span>
 				<h2>{{article.title}}</h2>
 
 				<br/>

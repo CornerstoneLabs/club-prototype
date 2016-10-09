@@ -83,6 +83,7 @@ angular
 		'$window',
 		'login',
 		'currentUser',
+		'News',
 		function(
 			$cookieStore,
 			$scope,
@@ -90,7 +91,8 @@ angular
 			$rootScope,
 			$window,
 			login,
-			currentUser
+			currentUser,
+			News
 		) {
 			// With the new view caching in Ionic, Controllers are only called
 			// when they are recreated or on app start, instead of every page change.
@@ -134,12 +136,29 @@ angular
 				$scope.currentUser = null;
 			};
 
+
+			$scope.newsAddData = {};
 			$scope.newsAddClick = function () {
 				$scope.newsAdd.show();
 			};
 
 			$scope.newsCloseClick = function () {
 				$scope.newsAdd.hide();
+			};
+
+			$scope.newsDraftClick = function () {
+				var data = {
+					title: $scope.newsAddData.title,
+					content: $scope.newsAddData.content
+				};
+
+				News.draft(data)
+					.then(function (response) {
+						var id = response.data.id;
+						$scope.newsAdd.hide();
+					}, function (error) {
+						debugger;
+					});
 			};
 
 			// Perform the login action when the user submits the login form

@@ -10,6 +10,7 @@ angular
 
 			function refresh () {
 				var url = ApplicationSettings.SERVER_URL + "/articles/";
+
 				$http
 					.get(url)
 					.then(function (response) {
@@ -22,6 +23,18 @@ angular
 			$rootScope.$on('reload', refresh);
 
 			return {
+				draft: function (data) {
+					var url = ApplicationSettings.SERVER_URL + "/articles/";
+
+					return $http.post(url, data);
+				},
+
+				save: function (data) {
+					var url = ApplicationSettings.SERVER_URL + "/articles/" + data.id + '/';
+
+					return $http.patch(url, data);
+				},
+
 				all: function() {
 					refresh();
 

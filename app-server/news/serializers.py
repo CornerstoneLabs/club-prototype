@@ -19,6 +19,8 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
             'title',
             'content',
             'author',
+            'author_id',
             'date_published',
             'image_url',
+            'published',
         )

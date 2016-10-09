@@ -82,6 +82,15 @@ angular
 						controller: 'NewsDetailController'
 					}
 				}
+			})
+			.state('app.news-detail-edit', {
+				url: '/news/:id/edit',
+				views: {
+					'menuContent': {
+						templateUrl: 'templates/forms/news/news-edit.html',
+						controller: 'NewsDetailController'
+					}
+				}
 			});
 
 			// if none of the above states are matched, use this as the fallback

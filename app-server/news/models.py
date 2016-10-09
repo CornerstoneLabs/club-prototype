@@ -11,8 +11,10 @@ class Article(models.Model):
     title = models.CharField(max_length=2000)
     content = models.TextField()
     author = models.ForeignKey(User)
-    date_published = models.DateField(default=datetime.datetime.today)
+    date_created = models.DateField(default=datetime.datetime.today)
+    date_published = models.DateField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
+    published = models.BooleanField(default=False)
 
     def image_url(self):
         """Return image URL."""
@@ -20,3 +22,4 @@ class Article(models.Model):
             return self.image.url
         else:
             return ''
+
