@@ -12,5 +12,6 @@ angular
 		'app.config',
 		'app.run',
 		'app.routes',
-		'filters.formatting'
+		'filters.formatting',
+		'app.templates'
 	]);
