@@ -176,7 +176,9 @@ angular
 					.then(function () {
 						$scope.closeLogin();
 					}, function () {
-						$scope.loginData.error = true;
+						$scope.evalAsync(function () {
+							$scope.loginData.error = true;
+						});
 					});
 			};
 
