@@ -4,8 +4,11 @@ angular
 		$scope.article = News.get($stateParams.id);
 
 		$scope.newsSaveClick = function () {
+			var data = $scope.article;
+			data.date_published = moment(data.date_published).format('YYYY-MM-DD');
+
 			News
-				.save($scope.article)
+				.save(data)
 				.then(function () {
 					$ionicNavBarDelegate.back();
 				}, function () {

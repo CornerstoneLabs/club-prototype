@@ -9,7 +9,7 @@ class Article(models.Model):
     """News article."""
 
     title = models.CharField(max_length=2000)
-    content = models.TextField()
+    content = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User)
     date_created = models.DateField(default=datetime.datetime.today)
     date_published = models.DateField(blank=True, null=True)
@@ -22,4 +22,3 @@ class Article(models.Model):
             return self.image.url
         else:
             return ''
-
