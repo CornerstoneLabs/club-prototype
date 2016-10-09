@@ -7,6 +7,10 @@ angular
 			var data = $scope.article;
 			data.date_published = moment(data.date_published).format('YYYY-MM-DD');
 
+			if (data.date_published === 'Invalid date') {
+				delete data.date_published;
+			}
+
 			News
 				.save(data)
 				.then(function () {
