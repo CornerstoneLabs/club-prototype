@@ -4,8 +4,11 @@
 	</ion-nav-buttons>
 	<ion-content>
 		<div class="padding">
-			<span style="float:right;" ng-if="!article.published">Draft</span>
-			<h2>{{article.title}}</h2>
+			<h2>
+				<span class="tag float-right published" ng-if="article.published">Published</span>
+				<span class="tag float-right draft" ng-if="!article.published">Draft</span>
+				{{article.title}}
+			</h2>
 			<br/>
 			<div class="details--wrapper">
 				<span class="details--item">{{ article.date_published | date: 'dd/MM/yyyy' }}</span>

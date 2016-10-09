@@ -90,6 +90,10 @@
     font-size: 14px;
 }
 
+.item-complex .item-content {
+	padding: 16px 12px 16px 16px;
+}
+
 /**
  * stripe
  */
@@ -185,4 +189,29 @@
 
 .menu-user--username {
 	color: #fff;
+}
+
+
+/**
+ * tag
+ */
+.tag {
+	border-radius: 4px;
+	font-size: 12px;
+	margin-top: 2px;
+	padding: 2px 6px;
+}
+
+.tag.draft {
+	background-color: #ffa96a;
+	color: #fff;
+}
+
+.tag.published {
+	background-color: #5ee16f;
+	color: #fff;
+}
+
+.float-right {
+	float: right;
 }
