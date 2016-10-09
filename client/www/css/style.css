@@ -84,6 +84,12 @@
 	font-size: 17px;
 }
 
+.item-stacked-label .input-label,
+.item-stacked-label .icon {
+	color: #828282;
+    font-size: 14px;
+}
+
 /**
  * stripe
  */
