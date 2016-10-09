@@ -80,6 +80,7 @@ angular
 		'$scope',
 		'$ionicModal',
 		'$rootScope',
+		'$state',
 		'$window',
 		'login',
 		'currentUser',
@@ -89,6 +90,7 @@ angular
 			$scope,
 			$ionicModal,
 			$rootScope,
+			$state,
 			$window,
 			login,
 			currentUser,
@@ -156,8 +158,13 @@ angular
 					.then(function (response) {
 						var id = response.data.id;
 						$scope.newsAdd.hide();
+
+						$state
+							.go('app.news-detail-edit', {
+								id: id
+							});
 					}, function (error) {
-						debugger;
+
 					});
 			};
 
