@@ -12,10 +12,11 @@
 				<span class="input-label">Body</span>
 				<textarea rows="7" placeholder="Body" ng-model="article.content"></textarea>
 			</label>
-			<ion-checkbox ng-model="article.published">Published</ion-checkbox>
-			<label class="item item-input item-stacked-label">
+			<!-- <ion-checkbox ng-model="article.published">Published</ion-checkbox> -->
+			<ion-toggle ng-click="onPublishedChange()" ng-model="article.published" toggle-class="toggle-assertive">Published</ion-toggle>
+			<label class="item item-input item-stacked-label" ng-disabled="!article.published">
 				<span class="input-label">Published date/time</span>
-				<input type="date" ng-model="article.date_published" />
+				<input type="date" ng-model="article.date_published" ng-disabled="!article.published"/>
 			</label>
 		</div>
 	</ion-content>
