@@ -98,6 +98,10 @@
 	background-color: transparent;
 }
 
+.no-top-padding .list {
+	padding-top: 0;
+}
+
 /**
  * stripe
  */

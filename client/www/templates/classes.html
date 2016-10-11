@@ -12,7 +12,7 @@
 				<button class="tab-wrapper--button" ng-click="tab='your'">Your Classes</button>
 			</div>
 		</div>
-		<ion-list ng-show="tab === 'all'" can-swipe="true">
+		<ion-list ng-show="tab === 'all'" can-swipe="true" class="no-top-padding">
 			<div ng-repeat="day in days['all']">
 				<div class="day-stripe">{{ day.name }}</div>
 				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
@@ -28,15 +28,16 @@
 					<div class="padding details--wrapper">
 						<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
 
-						<span class="details--item">{{ class.location }}</span>
+						<span class="details--item"><location-name id="class.location" /></span>
 
-						<span class="details--item last">{{ class.teacher }}</span>
+						<span class="details--item last"><user-profile-name id="class.teacher" />
+						</span>
 					</div>
 				</ion-item>
 			</div>
 		</ion-list>
 
-		<ion-list ng-show="tab === 'your'" can-swipe="true">
+		<ion-list ng-show="tab === 'your'" can-swipe="true" class="no-top-padding">
 			<div ng-repeat="day in days['your']">
 				<div class="day-stripe">{{ day.name }}</div>
 				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
@@ -52,9 +53,9 @@
 					<div class="padding details--wrapper">
 						<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
 
-						<span class="details--item">{{ class.location }}</span>
+						<span class="details--item"><location-name id="class.location" /></span>
 
-						<span class="details--item last">{{ class.teacher }}</span>
+						<span class="details--item last"><user-profile-name id="class.teacher" />
 					</div>
 				</ion-item>
 			</div>

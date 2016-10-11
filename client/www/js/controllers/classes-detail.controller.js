@@ -78,7 +78,6 @@ angular
 					.then(function (response) {
 						$scope.class = response.data;
 					}, function (error) {
-						debugger;
 					});
 			}
 
@@ -102,7 +101,6 @@ angular
 					.then(function (response) {
 						angular.merge(classSession, response.data);
 					}, function (error) {
-						debugger;
 					});
 			};
 

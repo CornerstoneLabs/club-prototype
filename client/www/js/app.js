@@ -18,5 +18,7 @@ angular
 		'repositories.brand.factory',
 		'repositories.locations.factory',
 		'repositories.user-profile.factory',
-		'controllers.classes-detail.controller'
+		'controllers.classes-detail.controller',
+		'components.location-name',
+		'components.user-profile-name'
 	]);

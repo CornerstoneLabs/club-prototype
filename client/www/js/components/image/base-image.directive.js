@@ -2,21 +2,21 @@ angular
 	.module('components.base-image', [])
 	.directive('baseImage', [
 		'ApplicationSettings',
-			function baseImage (ApplicationSettings) {
+		function baseImage (ApplicationSettings) {
 			return {
 				restrict: 'AE',
 				scope: {
 					src: '@'
 				},
 				templateUrl: 'templates/components/image-base.html',
-				link: function (scope, element, attr) {
+				link: function (scope) {
 					scope.show = false;
 					scope.backgroundImage = {};
 
 					function getUrl () {
-						 scope.targetUrl = ApplicationSettings.SERVER_URL + scope.src;
+						scope.targetUrl = ApplicationSettings.SERVER_URL + scope.src;
 
-						 return scope.targetUrl;
+						return scope.targetUrl;
 					}
 
 					function imageLoaded () {
@@ -42,4 +42,4 @@ angular
 				}
 			};
 		}
-	])
+	]);

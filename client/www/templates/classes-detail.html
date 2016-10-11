@@ -7,9 +7,9 @@
 		<div class="padding details--wrapper">
 			<span class="details--item">Start: {{ class.start_hours | numberFixedLen:2 }}:{{ class.start_minutes | numberFixedLen:2 }}</span>
 
-			<span class="details--item">{{ class.location }}</span>
+			<span class="details--item"><location-name id="class.location" /></span>
 
-			<span class="details--item last">{{ class.teacher }}</span>
+			<span class="details--item last"><user-profile-name id="class.teacher" />
 		</div>
 		<div class="padding">
 			<button ng-show="isParticipating() === true" class="button button-full" disabled="disabled">

@@ -2,6 +2,10 @@ angular
 	.module('controllers.classes.controller', [])
 	.controller('ClassesController', function($scope, Classes, ApplicationSettings) {
 		function transformDays (classes, myclasses) {
+			if (angular.isUndefined($scope.currentUser)) {
+				return;
+			}
+
 			var days = {};
 			var yourDays = {};
 			var dayName = [
