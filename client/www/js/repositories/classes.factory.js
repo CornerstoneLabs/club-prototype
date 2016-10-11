@@ -58,14 +58,44 @@ angular
 			$rootScope.$on('reload', refresh);
 
 			return {
+				draft: function (data) {
+					var url = ApplicationSettings.SERVER_URL + "/classes/";
+					var holding = {
+						new: true
+					};
+
+					classes.unshift(holding);
+
+					$http
+						.post(url, data)
+						.then(function (response) {
+							angular.merge(holding, response.data);
+							delete holding.new;
+						}, function (error) {
+
+						});
+
+					return holding;
+				},
+
+				save: function (data) {
+					var url = ApplicationSettings.SERVER_URL + "/classes/" + data.id + '/';
+
+					return $http.patch(url, data);
+				},
+
 				all: function() {
 					refresh();
 
 					return classes;
 				},
 
-				remove: function(classes) {
-					classes.splice(classes.indexOf(classes), 1);
+				remove: function(item) {
+					var url = ApplicationSettings.SERVER_URL + "/classes/" + item.id + '/';
+
+					classes.splice(classes.indexOf(item), 1);
+
+					return $http.delete(url);
 				},
 
 				get: function(classesId) {

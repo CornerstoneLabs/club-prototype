@@ -9,6 +9,8 @@ angular
 		'$cookies',
 		'$cookieStore',
 		'$rootScope',
+		'$ionicNavBarDelegate',
+		'$window',
 		'ClassSessions',
 		'ClassSessionNotifications',
 		'ApplicationSettings',
@@ -21,6 +23,8 @@ angular
 			$cookies,
 			$cookieStore,
 			$rootScope,
+			$ionicNavBarDelegate,
+			$window,
 			ClassSessions,
 			ClassSessionNotifications,
 			ApplicationSettings
@@ -104,6 +108,21 @@ angular
 
 			$scope.attend = function () {
 				attend();
+			};
+
+			//
+			// Editing
+			//
+			$scope.newsSaveClick = function () {
+				var data = $scope.class;
+
+				Classes
+					.save(data)
+					.then(function () {
+						$ionicNavBarDelegate.back();
+					}, function () {
+
+					});
 			};
 		}
 	]);

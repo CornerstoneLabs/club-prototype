@@ -1,0 +1,15 @@
+<ion-view view-title="Edit">
+	<ion-nav-buttons side="secondary">
+		<button class="button" ng-click="classSaveClick()">Save</button>
+	</ion-nav-buttons>
+	<ion-content>
+		<div class="list">
+			<label class="item item-input" for="title" ng-click="clickFocus('#title')" on-touch="clickFocus('#title')">
+				<input id="title" type="text" ng-model="article.title" placeholder="Title" />
+			</label>
+			<label class="item item-input" for="content" ng-click="clickFocus('#content')" on-touch="clickFocus('#content')">
+				<textarea id="content" name="content" rows="7" placeholder="Description" ng-model="article.content"></textarea>
+			</label>
+		</div>
+	</ion-content>
+</ion-view>

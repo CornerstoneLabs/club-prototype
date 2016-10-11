@@ -49,6 +49,7 @@ angular
 
 					return holding;
 				},
+
 				forClass: function (classId) {
 					refresh();
 

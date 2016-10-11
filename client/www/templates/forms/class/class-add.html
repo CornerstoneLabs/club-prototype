@@ -1,0 +1,51 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-assertive">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="classCloseClick()">Cancel</button>
+		</div>
+		<h1 class="title">New class</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="classDraftClick()">Save</button>
+		</div>
+	</ion-header-bar>
+	<ion-content>
+		<form>
+			<div class="list">
+				<label class="item item-input" for="title" ng-click="clickFocus('#title')" on-touch="clickFocus('#title')">
+					<input id="title" name="title" type="text" ng-model="classAddData.title" placeholder="Title" />
+				</label>
+				<label class="item item-input" for="content" ng-click="clickFocus('#content')" on-touch="clickFocus('#content')">
+					<textarea id="content" name="content" rows="7" placeholder="Description" ng-model="classAddData.content"></textarea>
+				</label>
+				<label class="item item-input" for="start_hours" ng-click="clickFocus('#start_hours')" on-touch="clickFocus('#start_hours')">
+					<input id="start_hours" name="start_hours" type="text" ng-model="classAddData.start_hours" placeholder="Start hours" />
+				</label>
+				<label class="item item-input" for="start_minutes" ng-click="clickFocus('#start_minutes')" on-touch="clickFocus('#start_minutes')">
+					<input id="start_minutes" name="start_minutes" type="text" ng-model="classAddData.start_minutes" placeholder="Start minutes" />
+				</label>
+				<label class="item item-input" for="end_hours" ng-click="clickFocus('#end_hours')" on-touch="clickFocus('#end_hours')">
+					<input id="end_hours" name="end_hours" type="text" ng-model="classAddData.end_hours" placeholder="End hours" />
+				</label>
+				<label class="item item-input" for="end_minutes" ng-click="clickFocus('#end_minutes')" on-touch="clickFocus('#end_minutes')">
+					<input id="end_minutes" name="end_minutes" type="text" ng-model="classAddData.end_minutes" placeholder="End minutes" />
+				</label>
+				<label class="item item-input item-select">
+					<div class="input-label">
+					Location
+					</div>
+					<select ng-model="classAddData.location">
+						<option ng-repeat="location in locations" value="{{ location.id }}">{{ location.title }}</option>
+					</select>
+				</label>
+				<label class="item item-input item-select">
+					<div class="input-label">
+					Teacher
+					</div>
+					<select ng-model="classAddData.teacher">
+						<option ng-repeat="teacher in userProfile" value="{{ teacher.id }}">{{ teacher.name }}</option>
+					</select>
+				</label>
+			</div>
+		</form>
+	</ion-content>
+</ion-modal-view>

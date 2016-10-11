@@ -1,4 +1,8 @@
 <ion-view view-title="Classes">
+	<ion-nav-buttons side="secondary">
+		<button class="button ion-plus-circled" ng-click="classAddClick()">
+		</button>
+	</ion-nav-buttons>
 	<ion-content>
 		<div class="tab-wrapper assertive row no-border">
 			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'all' }">
@@ -8,10 +12,15 @@
 				<button class="tab-wrapper--button" ng-click="tab='your'">Your Classes</button>
 			</div>
 		</div>
-		<ion-list ng-show="tab === 'all'">
+		<ion-list ng-show="tab === 'all'" can-swipe="true">
 			<div ng-repeat="day in days['all']">
 				<div class="day-stripe">{{ day.name }}</div>
-				<div ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+					<ion-option-button class="button-assertive"
+						ng-click="deleteClick(class)">
+						Delete
+					</ion-option-button>
+
 					<base-image src="{{ class.image_url }}"></base-image>
 					<div class="padding">
 						<h2>{{ class.title }}</h2>
@@ -23,14 +32,19 @@
 
 						<span class="details--item last">{{ class.teacher }}</span>
 					</div>
-				</div>
+				</ion-item>
 			</div>
 		</ion-list>
 
-		<ion-list ng-show="tab === 'your'">
+		<ion-list ng-show="tab === 'your'" can-swipe="true">
 			<div ng-repeat="day in days['your']">
 				<div class="day-stripe">{{ day.name }}</div>
-				<div ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+					<ion-option-button class="button-assertive"
+						ng-click="deleteClick(class)">
+						Delete
+					</ion-option-button>
+
 					<base-image src="{{ class.image_url }}"></base-image>
 					<div class="padding">
 						<h2>{{ class.title }}</h2>
@@ -42,7 +56,7 @@
 
 						<span class="details--item last">{{ class.teacher }}</span>
 					</div>
-				</div>
+				</ion-item>
 			</div>
 		</ion-list>
 	</ion-content>

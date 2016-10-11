@@ -4,7 +4,7 @@
 		</button>
 	</ion-nav-buttons>
 	<ion-content>
-		<ion-list>
+		<ion-list can-swipe="true">
 			<base-image src="{{ brand.image_url }}"></base-image>
 
 			<div class="padding">
@@ -15,6 +15,7 @@
 			</div>
 
 			<ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
+				<span ng-if="article.new">New</span>
 				<span class="tag float-right published" ng-if="article.published">Published</span>
 				<span class="tag float-right draft" ng-if="!article.published">Draft</span>
 				<h2>{{article.title}}</h2>
@@ -29,6 +30,11 @@
 
 					<span class="details--item last">{{ article.author }}</span>
 				</div>
+
+				<ion-option-button class="button-assertive"
+					ng-click="deleteClick(article)">
+					Delete
+				</ion-option-button>
 			</ion-item>
 		</ion-list>
 	</ion-content>

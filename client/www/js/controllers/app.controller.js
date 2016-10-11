@@ -85,6 +85,9 @@ angular
 		'login',
 		'currentUser',
 		'News',
+		'Classes',
+		'Location',
+		'UserProfile',
 		function(
 			$cookieStore,
 			$scope,
@@ -94,8 +97,15 @@ angular
 			$window,
 			login,
 			currentUser,
-			News
+			News,
+			Classes,
+			Location,
+			UserProfile
 		) {
+			$scope.clickFocus = function (cssElement) {
+				document.querySelector(cssElement).focus();
+			};
+
 			// With the new view caching in Ionic, Controllers are only called
 			// when they are recreated or on app start, instead of every page change.
 			// To listen for when this page is active (for example, to refresh data),
@@ -123,6 +133,14 @@ angular
 					$scope.newsAdd = modal;
 				});
 
+			$ionicModal
+				.fromTemplateUrl('templates/forms/class/class-add.html', {
+					scope: $scope
+				})
+				.then(function(modal) {
+					$scope.classAdd = modal;
+				});
+
 			// Triggered in the login modal to close it
 			$scope.closeLogin = function() {
 				$scope.modal.hide();
@@ -138,7 +156,7 @@ angular
 				$scope.currentUser = null;
 			};
 
-
+			// news
 			$scope.newsAddData = {};
 			$scope.newsAddClick = function () {
 				$scope.newsAdd.show();
@@ -151,21 +169,45 @@ angular
 			$scope.newsDraftClick = function () {
 				var data = {
 					title: $scope.newsAddData.title,
-					content: $scope.newsAddData.content
+					content: $scope.newsAddData.content,
+					date_published: $scope.newsAddData.date_published,
+					published: $scope.newsAddData.published
 				};
 
-				News.draft(data)
-					.then(function (response) {
-						var id = response.data.id;
-						$scope.newsAdd.hide();
+				$scope.$evalAsync(function () {
+					News.draft(data);
+					$scope.newsAdd.hide();
+				});
+			};
 
-						$state
-							.go('app.news-detail-edit', {
-								id: id
-							});
-					}, function (error) {
+			// class
+			$scope.classAddData = {};
+			$scope.classAddClick = function () {
+				$scope.locations = Location.all();
+				$scope.userProfile = UserProfile.all();
+				$scope.classAdd.show();
+			};
 
-					});
+			$scope.classCloseClick = function () {
+				$scope.classAdd.hide();
+			};
+
+			$scope.classDraftClick = function () {
+				var data = {
+					title: $scope.classAddData.title,
+					content: $scope.classAddData.content,
+					start_hours: parseInt($scope.classAddData.start_hours),
+					start_minutes: parseInt($scope.classAddData.start_minutes),
+					end_hours: parseInt($scope.classAddData.end_hours),
+					end_minutes: parseInt($scope.classAddData.end_minutes),
+					location: $scope.classAddData.location,
+					teacher: $scope.classAddData.teacher
+				};
+
+				$scope.$evalAsync(function () {
+					Classes.draft(data);
+					$scope.classAdd.hide();
+				});
 			};
 
 			// Perform the login action when the user submits the login form

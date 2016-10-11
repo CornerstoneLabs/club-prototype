@@ -64,5 +64,9 @@ angular
 
 		$scope.tab = 'all';
 
+		$scope.deleteClick = function (item) {
+			Classes.remove(item);
+		};
+
 		reload($scope);
 	});

@@ -41,6 +41,15 @@ angular
 						}
 					}
 				})
+				.state('app.classes-edit', {
+					url: '/classes/:id/edit',
+					views: {
+						'menuContent': {
+							templateUrl: 'templates/forms/class/class-edit.html',
+							controller: 'ClassesDetailController'
+						}
+					}
+				})
 				.state('app.news', {
 					url: '/news/',
 					views: {

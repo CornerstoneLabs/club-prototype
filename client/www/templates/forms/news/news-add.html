@@ -3,22 +3,24 @@
 		<div class="buttons">
 			<button class="button button-clear" ng-click="newsCloseClick()">Cancel</button>
 		</div>
-		<h1 class="title">Draft news</h1>
+		<h1 class="title">New news</h1>
 		<div class="buttons">
-			<button class="button button-clear" ng-click="newsDraftClick()">Next</button>
+			<button class="button button-clear" ng-click="newsDraftClick()">Save</button>
 		</div>
 	</ion-header-bar>
 	<ion-content>
 		<form>
 			<div class="list">
-				<label class="item item-input item-stacked-label">
-					<span class="input-label">Headline</span>
-					<input type="text" ng-model="newsAddData.title" placeholder="Headline" focus-me />
+				<label class="item item-input" for="headline" ng-click="clickFocus('#headline')" on-touch="clickFocus('#headline')">
+					<input id="headline" name="headline" type="text" ng-model="newsAddData.title" placeholder="Headline" />
 				</label>
-				<label class="item item-input item-stacked-label">
-					<span class="input-label">Body</span>
-					<textarea rows="7" placeholder="Body" ng-model="newsAddData.content"></textarea>
+				<label class="item item-input" for="content" ng-click="clickFocus('#content')" on-touch="clickFocus('#content')">
+					<textarea id="content" name="content" rows="7" placeholder="Story" ng-model="newsAddData.content"></textarea>
 				</label>
+				<ion-toggle ng-click="onPublishedChange()" ng-model="newsAddData.published" toggle-class="toggle-assertive">Published</ion-toggle>
+				<label class="item item-input" ng-disabled="!newsAddData.published" ng-click="clickFocus('#date-published')" on-touch="clickFocus('#date-published')">
+					<span class="input-label">Published date</span>
+					<input type="date" id="date-published" ng-model="newsAddData.date_published" ng-disabled="!newsAddData.published"/>
 			</div>
 		</form>
 	</ion-content>

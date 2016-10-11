@@ -4,14 +4,15 @@ from classes.models import Class
 from classes.models import ClassSession
 from classes.models import ClassSessionNotification
 from classes.models import Location
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
 class ClassSerializer(serializers.HyperlinkedModelSerializer):
     """Class serializer."""
 
-    location = serializers.StringRelatedField()
-    teacher = serializers.StringRelatedField()
+    location = serializers.PrimaryKeyRelatedField(queryset=Location.objects.all())
+    teacher = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         """Meta."""
@@ -46,7 +47,7 @@ class ClassSessionSerializer(serializers.HyperlinkedModelSerializer):
             'parent_class',
             'session_start',
             'session_end',
-            'checked_in'
+            'checked_in',
         )
 
 
@@ -62,7 +63,7 @@ class ClassSessionNotificationSerializer(serializers.HyperlinkedModelSerializer)
             'text',
             'date_published',
             'session',
-            'liked'
+            'liked',
         )
 
 
@@ -74,5 +75,6 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
 
         model = Location
         fields = (
-            'title'
+            'id',
+            'title',
         )

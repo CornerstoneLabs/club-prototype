@@ -2,9 +2,10 @@ angular
 	.module('repositories.news.factory', [])
 	.factory('News', [
 		'$http',
+		'$q',
 		'$rootScope',
 		'ApplicationSettings',
-		function($http, $rootScope, ApplicationSettings) {
+		function($http, $q, $rootScope, ApplicationSettings) {
 
 			var news = [];
 
@@ -25,8 +26,30 @@ angular
 			return {
 				draft: function (data) {
 					var url = ApplicationSettings.SERVER_URL + "/articles/";
+					var holding = {
+						new: true
+					};
 
-					return $http.post(url, data);
+					news.unshift(holding);
+
+					$http
+						.post(url, data)
+						.then(function (response) {
+							angular.merge(holding, response.data);
+							delete holding.new;
+						}, function (error) {
+
+						});
+
+					return holding;
+				},
+
+				remove: function (article) {
+					var url = ApplicationSettings.SERVER_URL + "/articles/" + article.id + '/';
+
+					news.splice(news.indexOf(article), 1);
+
+					return $http.delete(url);
 				},
 
 				save: function (data) {
@@ -39,10 +62,6 @@ angular
 					refresh();
 
 					return news;
-				},
-
-				remove: function(news) {
-					news.splice(news.indexOf(news), 1);
 				},
 
 				get: function(newsId) {

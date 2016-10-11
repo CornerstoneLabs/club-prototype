@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from brand.viewsets import BrandViewSet
-from classes.viewsets import ClassSessionViewSet
 from classes.viewsets import ClassSessionNotificationViewset
+from classes.viewsets import ClassSessionViewSet
 from classes.viewsets import ClassViewSet
 from classes.viewsets import LocationViewSet
 from clubserver.viewsets import UserViewSet
@@ -27,18 +27,20 @@ from django.contrib import admin
 from news.viewsets import ArticleViewSet
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
+from userprofile.viewsets import UserProfileViewSet
 import classes.views
 
 admin.site.site_header = 'Club Admin'
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 router.register(r'articles', ArticleViewSet)
-router.register(r'classes', ClassViewSet)
-router.register(r'class-session', ClassSessionViewSet)
-router.register(r'locations', LocationViewSet)
 router.register(r'brand', BrandViewSet)
+router.register(r'class-session', ClassSessionViewSet)
 router.register(r'class-session-notification', ClassSessionNotificationViewset)
+router.register(r'classes', ClassViewSet)
+router.register(r'locations', LocationViewSet)
+router.register(r'user-profile', UserProfileViewSet)
+router.register(r'users', UserViewSet)
 
 
 urlpatterns = [

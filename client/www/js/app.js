@@ -13,5 +13,10 @@ angular
 		'app.run',
 		'app.routes',
 		'filters.formatting',
-		'app.templates'
+		'app.templates',
+		'repositories.class-sessions.factory',
+		'repositories.brand.factory',
+		'repositories.locations.factory',
+		'repositories.user-profile.factory',
+		'controllers.classes-detail.controller'
 	]);

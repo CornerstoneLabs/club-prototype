@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework.authtoken',
     'django_cron',
+    'userprofile',
 ]
 
 MIDDLEWARE = [

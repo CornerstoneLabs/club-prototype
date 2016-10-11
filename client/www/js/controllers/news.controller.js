@@ -7,4 +7,8 @@ angular
 		$scope.$on('$ionicView.enter', function() {
 			$scope.news = News.all();
 		});
+
+		$scope.deleteClick = function (article) {
+			News.remove(article);
+		};
 	});

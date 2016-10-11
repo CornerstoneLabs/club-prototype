@@ -94,6 +94,10 @@
 	padding: 16px 12px 16px 16px;
 }
 
+.item-input textarea {
+	background-color: transparent;
+}
+
 /**
  * stripe
  */

@@ -6,6 +6,7 @@ from classes.models import ClassSessionNotification
 from classes.serializers import ClassSerializer
 from classes.serializers import ClassSessionSerializer
 from classes.serializers import ClassSessionNotificationSerializer
+from userprofile.models import UserProfile
 from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -27,7 +28,9 @@ class UserSerializer(serializers.Serializer):
 @api_view(['GET'])
 def current_user(request):
     """Return the current user."""
-    serializer = UserSerializer(request.user)
+    user = request.user
+    user.profile = user.profile.all()
+    serializer = UserSerializer(user)
     return Response(serializer.data)
 
 

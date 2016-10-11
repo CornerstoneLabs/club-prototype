@@ -4,19 +4,16 @@
 	</ion-nav-buttons>
 	<ion-content>
 		<div class="list">
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Headline</span>
-				<input type="text" ng-model="article.title" placeholder="Headline" focus-me/>
+			<label class="item item-input" for="headline" ng-click="clickFocus('#headline')" on-touch="clickFocus('#headline')">
+				<input id="headline" type="text" ng-model="article.title" placeholder="Headline" />
 			</label>
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Body</span>
-				<textarea rows="7" placeholder="Body" ng-model="article.content"></textarea>
+			<label class="item item-input" for="content" ng-click="clickFocus('#content')" on-touch="clickFocus('#content')">
+				<textarea id="content" name="content" rows="7" placeholder="Story" ng-model="article.content"></textarea>
 			</label>
-			<!-- <ion-checkbox ng-model="article.published">Published</ion-checkbox> -->
 			<ion-toggle ng-click="onPublishedChange()" ng-model="article.published" toggle-class="toggle-assertive">Published</ion-toggle>
-			<label class="item item-input item-stacked-label" ng-disabled="!article.published">
-				<span class="input-label">Published date/time</span>
-				<input type="date" ng-model="article.date_published" ng-disabled="!article.published"/>
+			<label class="item item-input" ng-disabled="!article.published" ng-click="clickFocus('#date-published')" on-touch="clickFocus('#date-published')">
+				<span class="input-label">Published date</span>
+				<input type="date" id="date-published" ng-model="article.date_published" ng-disabled="!article.published"/>
 			</label>
 		</div>
 	</ion-content>
