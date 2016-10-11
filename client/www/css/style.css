@@ -164,7 +164,7 @@
  */
 
 .menu {
-	background-color: #d0021b;
+	background-color: #444444;
 }
 
 .menu .item {
@@ -174,7 +174,7 @@
 .menu .item,
 .menu .item .item-complex,
 .menu .item .item-content {
-	background-color: #d0021b;
+	background-color: #444444;
 	color: #fff;
 	text-align: center;
 }
@@ -183,11 +183,25 @@
 	padding-right: 16px;
 }
 
+.menu-user--avatar-container {
+	padding-top: 43px;
+}
+
+.menu-user--avatar {
+	background-color: #999;
+	border-radius: 50%;
+	border: solid 2px #fff;
+	height: 86px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 86px;
+}
+
 .menu-user--wrapper {
-	background-color: #d0021b;
+	background-color: #444444;
 	font-size: 20px;
-	padding-bottom: 32px;
-	padding-top: 32px;
+	padding-bottom: 16px;
+	padding-top: 28px;
 	text-align: center;
 }
 
