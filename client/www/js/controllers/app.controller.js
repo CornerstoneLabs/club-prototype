@@ -159,6 +159,11 @@ angular
 			// news
 			$scope.newsAddData = {};
 			$scope.newsAddClick = function () {
+				$scope.newsAddData.title = '';
+				$scope.newsAddData.content = '';
+				$scope.newsAddData.date_published = null;
+				$scope.newsAddData.published = false;
+
 				$scope.newsAdd.show();
 			};
 
@@ -183,6 +188,15 @@ angular
 			// class
 			$scope.classAddData = {};
 			$scope.classAddClick = function () {
+				$scope.classAddData.title = '';
+				$scope.classAddData.content = '';
+				$scope.classAddData.start_hours = '';
+				$scope.classAddData.start_minutes = '';
+				$scope.classAddData.end_hours = '';
+				$scope.classAddData.end_minutes = '';
+				$scope.classAddData.location = null;
+				$scope.classAddData.teacher = null;
+
 				$scope.locations = Location.all();
 				$scope.userProfile = UserProfile.all();
 				$scope.classAdd.show();
