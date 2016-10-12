@@ -4,6 +4,11 @@
 		</button>
 	</ion-nav-buttons>
 	<ion-content>
+		<ion-refresher
+			pulling-text="Pull to refresh..."
+			on-refresh="doRefresh()">
+		</ion-refresher>
+
 		<div class="tab-wrapper assertive row no-border">
 			<div class="col tab-wrapper--tab" ng-class="{ 'tab-wrapper--active': tab === 'all' }">
 				<button class="tab-wrapper--button" ng-click="tab='all'">All Classes</button>
@@ -40,7 +45,7 @@
 		<ion-list ng-show="tab === 'your'" can-swipe="true" class="no-top-padding">
 			<div ng-repeat="day in days['your']">
 				<div class="day-stripe">{{ day.name }}</div>
-				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })">
+				<ion-item ng-repeat="class in day.classes | orderBy:['start_hours', 'start_minutes']" ui-sref="app.classes-detail({ id: class.id })" class="item-remove-animate">
 					<ion-option-button class="button-assertive"
 						ng-click="deleteClick(class)">
 						Delete

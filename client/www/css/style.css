@@ -96,11 +96,17 @@
 
 .item-input textarea {
 	background-color: transparent;
+	border: none;
 }
 
 .no-top-padding .list {
 	padding-top: 0;
 }
+
+.scroll-content.no-top-padding {
+	padding-top: 0;
+}
+
 
 /**
  * stripe
@@ -185,6 +191,10 @@
 
 .menu .item .item-content {
 	padding-right: 16px;
+}
+
+.menu .item .item-content.activated {
+	background-color: #333;
 }
 
 .menu-user--avatar-container {

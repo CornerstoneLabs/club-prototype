@@ -9,21 +9,31 @@ angular
 
 			var news = [];
 
-			function refresh () {
+			function refresh (callback) {
 				var url = ApplicationSettings.SERVER_URL + "/articles/";
 
 				$http
 					.get(url)
 					.then(function (response) {
 						angular.merge(news, response.data);
+
+						if (callback) {
+							callback();
+						}
 					}, function (error) {
 
 					});
 			}
 
-			$rootScope.$on('reload', refresh);
+			$rootScope.$on('reload', function () {
+				refresh();
+			});
 
 			return {
+				refresh: function (callback) {
+					refresh(callback);
+				},
+
 				draft: function (data) {
 					var url = ApplicationSettings.SERVER_URL + "/articles/";
 					var holding = {

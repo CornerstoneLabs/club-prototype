@@ -1,6 +1,6 @@
 angular
 	.module('controllers.classes.controller', [])
-	.controller('ClassesController', function($scope, Classes, ApplicationSettings) {
+	.controller('ClassesController', function($scope, $ionicListDelegate, $rootScope, Classes, ApplicationSettings) {
 		function transformDays (classes, myclasses) {
 			if (angular.isUndefined($scope.currentUser)) {
 				return;
@@ -71,6 +71,18 @@ angular
 		$scope.deleteClick = function (item) {
 			Classes.remove(item);
 		};
+
+		function onRefreshComplete () {
+			$scope.$broadcast('scroll.refreshComplete');
+		}
+
+		$scope.doRefresh = function() {
+			Classes.refresh(onRefreshComplete);
+		};
+
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState){
+			$ionicListDelegate.closeOptionButtons();
+		});
 
 		reload($scope);
 	});

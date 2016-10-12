@@ -9,7 +9,7 @@ angular
 
 			var classes = [];
 
-			function refresh () {
+			function refresh (callback) {
 				console.log('refreshing classes');
 				var url = ApplicationSettings.SERVER_URL + "/classes/";
 				$http
@@ -48,6 +48,10 @@ angular
 								}
 							});
 
+							if (callback) {
+								callback();
+							}
+
 							$rootScope.$broadcast('reloaded');
 						});
 					}, function (error) {
@@ -55,9 +59,15 @@ angular
 					});
 			}
 
-			$rootScope.$on('reload', refresh);
+			$rootScope.$on('reload', function () {
+				refresh();
+			});
 
 			return {
+				refresh: function (callback) {
+					refresh(callback);
+				},
+
 				draft: function (data) {
 					var url = ApplicationSettings.SERVER_URL + "/classes/";
 					var holding = {

@@ -3,7 +3,11 @@
 		<button class="button ion-plus-circled" ng-click="newsAddClick()">
 		</button>
 	</ion-nav-buttons>
-	<ion-content>
+	<ion-content class="no-top-padding">
+		<ion-refresher
+			pulling-text="Pull to refresh..."
+			on-refresh="doRefresh()">
+		</ion-refresher>
 		<ion-list can-swipe="true">
 			<base-image src="{{ brand.image_url }}"></base-image>
 
@@ -14,7 +18,7 @@
 				</div>
 			</div>
 
-			<ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })">
+			<ion-item ng-repeat="article in news" ui-sref="app.news-detail({ id: article.id })" class="item-remove-animate">
 				<span ng-if="article.new">New</span>
 				<span class="tag float-right published" ng-if="article.published">Published</span>
 				<span class="tag float-right draft" ng-if="!article.published">Draft</span>

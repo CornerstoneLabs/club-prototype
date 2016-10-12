@@ -1,6 +1,7 @@
 """A user profile shows the publically available information about a user."""
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
 import datetime
 
 
@@ -18,3 +19,16 @@ class UserProfile(models.Model):
             return self.image.url
         else:
             return ''
+
+
+def check_profile_exists(sender, instance, signal, *args, **kwargs):
+    """Create a profile if a user does not have one."""
+    if sender is User:
+        if UserProfile.objects.filter(user=instance).count() == 0:
+            user_profile = UserProfile()
+            user_profile.user = instance
+            user_profile.name = instance.first_name
+            user_profile.save()
+
+
+post_save.connect(check_profile_exists, sender=User)

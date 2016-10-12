@@ -11,7 +11,8 @@
 			</h2>
 			<br/>
 			<div class="details--wrapper">
-				<span class="details--item">{{ article.date_published | date: 'dd/MM/yyyy' }}</span>
+				<span class="details--item" ng-if="!article.date_published">No published date</span>
+				<span class="details--item" ng-if="article.date_published" ng-bind="article.date_published | date: 'dd/MM/yyyy'"></span>
 				<span class="details--item last">{{ article.author }}</span>
 			</div>
 		</div>
