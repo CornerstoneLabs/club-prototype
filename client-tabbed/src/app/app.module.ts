@@ -18,6 +18,7 @@ import { LoginMount } from '../pages/login/login-mount';
 import {NewsDetailPage} from "../pages/news/news-detail";
 import {SituationWrapperPage} from "../pages/situation/situation-wrapper";
 import {SituationDetailPage} from "../pages/situation/situation-detail";
+import {UserRepository} from "../repository/user.repository";
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,7 @@ import {SituationDetailPage} from "../pages/situation/situation-detail";
 		NewsDetailPage,
 		SituationPage,
 		SituationWrapperPage,
-		SituationDetailPage,
+		SituationDetailPage
 	],
 	imports: [
 		IonicModule.forRoot(MyApp),
@@ -63,7 +64,8 @@ import {SituationDetailPage} from "../pages/situation/situation-detail";
 		ApplicationSettings,
 		AuthenticatedHttpClient,
 		AuthenticationManager,
-		AuthenticationEvent
+		AuthenticationEvent,
+		UserRepository
 	]
 })
 export class AppModule {}

@@ -12,7 +12,8 @@ export class TabsPage {
 	// should be each tab's root Page
 	tab1Root: any = NewsWrapperPage;
 	tab2Root: any = SituationPage;
-	tab3Root: any = ContactPage;
+	tab3Root: any = SituationPage;
+	tab4Root: any = ContactPage;
 
 	constructor() {
 

@@ -1,0 +1,12 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:2.6.12
+    volumes:
+      - dbdata:/data/db
+    ports:
+      - "27017:27017"
+    command: --smallfiles --rest --auth
+volumes:
+  dbdata:
+    driver: local

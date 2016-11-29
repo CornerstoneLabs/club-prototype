@@ -24,7 +24,7 @@ export class SituationDetailPage {
 	}
 
 	ngOnInit() {
-		this.title = 'Situation';
+		this.title = 'Class';
 		this.getData();
 		this.id = this.navParams.get('id');
 
