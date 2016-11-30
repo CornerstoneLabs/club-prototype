@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { CredentialModel } from './credential.model';
 import { ApplicationSettings } from '../app/app.settings';
 import { AuthenticationEvent } from '../http/authentication.event';
 import { Observable } from 'rxjs/Observable';

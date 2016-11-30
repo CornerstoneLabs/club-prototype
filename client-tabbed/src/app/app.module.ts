@@ -1,6 +1,6 @@
 import { ContactPage } from '../pages/contact/contact';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {MyApp} from './app.component';
 import { NewsPage } from '../pages/news/news';
 import { NewsWrapperPage } from '../pages/news/news-wrapper';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -19,6 +19,12 @@ import {NewsDetailPage} from "../pages/news/news-detail";
 import {SituationWrapperPage} from "../pages/situation/situation-wrapper";
 import {SituationDetailPage} from "../pages/situation/situation-detail";
 import {UserRepository} from "../repository/user.repository";
+import {WindowRef} from "./app.window_provider";
+import {SocketManager} from "../http/socket.manager";
+import {NewsCreatePage} from "../pages/news/news-create";
+import {NewsEditPage} from "../pages/news/news-edit";
+import {SituationCreatePage} from "../pages/situation/situation-create";
+import {SituationEditPage} from "../pages/situation/situation-edit";
 
 @NgModule({
 	declarations: [
@@ -30,9 +36,13 @@ import {UserRepository} from "../repository/user.repository";
 		NewsPage,
 		NewsWrapperPage,
 		NewsDetailPage,
+		NewsCreatePage,
+		NewsEditPage,
 		SituationPage,
 		SituationWrapperPage,
-		SituationDetailPage
+		SituationDetailPage,
+		SituationCreatePage,
+		SituationEditPage
 	],
 	imports: [
 		IonicModule.forRoot(MyApp),
@@ -50,9 +60,13 @@ import {UserRepository} from "../repository/user.repository";
 		NewsPage,
 		NewsWrapperPage,
 		NewsDetailPage,
+		NewsCreatePage,
+		NewsEditPage,
 		SituationPage,
 		SituationWrapperPage,
 		SituationDetailPage,
+		SituationCreatePage,
+		SituationEditPage
 	],
 	providers: [
 		{
@@ -65,7 +79,9 @@ import {UserRepository} from "../repository/user.repository";
 		AuthenticatedHttpClient,
 		AuthenticationManager,
 		AuthenticationEvent,
-		UserRepository
+		UserRepository,
+		WindowRef,
+		SocketManager
 	]
 })
 export class AppModule {}

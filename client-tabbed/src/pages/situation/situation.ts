@@ -3,6 +3,7 @@ import { SituationRepository } from '../../repository/situation.repository';
 import { SituationModel } from '../../model/situation.model';
 import { NavController } from 'ionic-angular';
 import {SituationDetailPage} from "./situation-detail";
+import {SituationCreatePage} from "./situation-create";
 
 @Component({
 	selector: 'page-situation',
@@ -41,11 +42,27 @@ export class SituationPage {
 		};
 
 		let params = {
-			id: item.id
+			id: item.id,
+			origin: this
 		};
 
 		this
 			.navCtrl
 			.push(SituationDetailPage, params, opts);
+	}
+
+	create () {
+		let opts = {
+			animate: true,
+			direction: 'forward'
+		};
+
+		let params = {
+			origin: this
+		};
+
+		this
+            .navCtrl
+            .push(SituationCreatePage, params, opts);
 	}
 }

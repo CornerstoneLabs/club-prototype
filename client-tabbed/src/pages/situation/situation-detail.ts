@@ -3,6 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import { SituationRepository } from '../../repository/situation.repository';
 import { SituationModel } from '../../model/situation.model';
 import { AuthenticationEvent } from '../../http/authentication.event';
+import {SituationEditPage} from "./situation-edit";
 
 @Component({
 	selector: 'page-situation-detail',
@@ -11,7 +12,7 @@ import { AuthenticationEvent } from '../../http/authentication.event';
 export class SituationDetailPage {
 	errorMessage: string;
 	title: string;
-	data: SituationModel[];
+	data: SituationModel;
 	id: number;
 
 	constructor(
@@ -25,8 +26,9 @@ export class SituationDetailPage {
 
 	ngOnInit() {
 		this.title = 'Class';
-		this.getData();
 		this.id = this.navParams.get('id');
+
+		this.getData();
 
 		let _this = this;
 		this
@@ -36,10 +38,30 @@ export class SituationDetailPage {
 			});
 	}
 
+	ngOnDestroy () {
+		this.navParams.get('origin').getData();
+	}
+
+	edit () {
+		let opts = {
+			animate: true,
+			direction: 'forward'
+		};
+
+		let params = {
+			id: this.id,
+			origin: this
+		};
+
+		this
+            .navCtrl
+            .push(SituationEditPage, params, opts);
+	}
+
 	getData () {
 		this
 			.situationRepository
-			.all()
+            .get(this.id)
 			.subscribe(
 				data => this.data = data,
 				error => this.errorMessage = <any>error);

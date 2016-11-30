@@ -23,4 +23,5 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
             'date_published',
             'image_url',
             'published',
+            'date_created',
         )

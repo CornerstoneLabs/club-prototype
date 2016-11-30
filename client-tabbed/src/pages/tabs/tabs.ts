@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NewsWrapperPage } from '../news/news-wrapper';
 import { SituationPage } from '../situation/situation';
 import { ContactPage } from '../contact/contact';
+import {SocketManager} from "../../http/socket.manager";
 
 @Component({
 	templateUrl: 'tabs.html'
@@ -15,7 +16,11 @@ export class TabsPage {
 	tab3Root: any = SituationPage;
 	tab4Root: any = ContactPage;
 
-	constructor() {
+	constructor(private socketManager: SocketManager) {
+
+	}
+
+	ngOnInit() {
 
 	}
 }

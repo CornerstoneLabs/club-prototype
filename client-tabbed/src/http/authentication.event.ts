@@ -1,4 +1,3 @@
-import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
 
 var authenticationSubscribers = new Array();

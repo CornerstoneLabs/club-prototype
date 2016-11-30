@@ -47,16 +47,25 @@ export class AuthenticatedHttpClient {
 	}
 
 	post(url, data) {
+		return this.verb(url, data, 'post');
+	}
+
+	patch(url, data) {
+		return this.verb(url, data, 'patch');
+	}
+
+	verb(url, data, httpVerb) {
 		let headers = new Headers();
 		this.authenticationHeaders(headers);
 		let params = {
 			headers: headers
 		};
+		let fullUrl = this.createUrl(url);
 		let _this = this;
 
 		let result = this
 			.http
-			.post(url, data, params)
+			[httpVerb](fullUrl, data, params)
 			.catch(function (error) {
 				return _this.handleError(error);
 			});

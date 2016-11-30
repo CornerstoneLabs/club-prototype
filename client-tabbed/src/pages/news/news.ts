@@ -4,6 +4,8 @@ import { NewsRepository } from '../../repository/news.repository';
 import { NewsModel } from '../../model/news.model';
 import { AuthenticationEvent } from '../../http/authentication.event';
 import { NewsDetailPage } from "./news-detail";
+import {SocketManager} from "../../http/socket.manager";
+import {NewsCreatePage} from "./news-create";
 
 @Component({
 	selector: 'page-news',
@@ -18,19 +20,30 @@ export class NewsPage {
 		public navCtrl: NavController,
 		private newsRepository: NewsRepository,
 		private authenticationEvent: AuthenticationEvent,
-		public navController: NavController
+		public navController: NavController,
+		private socketManager: SocketManager
 	) {
 
 	}
 
-	ngOnInit() {
+	ngOnInit () {
 		this.title = 'News';
 		this.getData();
 
 		let _this = this;
+
 		this.authenticationEvent.onHasAuthenticated(()=> {
 			_this.getData();
 		});
+
+		this.socketManager.onUpdate(()=> {
+			console.log('fetching dat');
+			_this.getData();
+		});
+	}
+
+	ngOnDestroy () {
+
 	}
 
 	getData () {
@@ -47,11 +60,27 @@ export class NewsPage {
 		};
 
 		let params = {
-			id: item.id
+			id: item.id,
+			origin: this
 		};
 
 		this
 			.navCtrl
 			.push(NewsDetailPage, params, opts);
+	}
+
+	create () {
+		let opts = {
+			animate: true,
+			direction: 'forward'
+		};
+
+		let params = {
+			origin: this
+		};
+
+		this
+			.navCtrl
+			.push(NewsCreatePage, params, opts);
 	}
 }

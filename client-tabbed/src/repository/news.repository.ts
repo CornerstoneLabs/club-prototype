@@ -27,6 +27,33 @@ export class NewsRepository {
 		return result;
 	}
 
+	get (id): Observable<NewsModel> {
+		let result =
+			this.http
+                .get(this.url + id + '/')
+                .map(this.extractData);
+
+		return result;
+	}
+
+	create (data): Observable<NewsModel[]> {
+		let result =
+			this.http
+				.post(this.url, data)
+				.map(this.extractData);
+
+		return result;
+	}
+
+	save (data): Observable<NewsModel[]> {
+		let result =
+			this.http
+				.patch(this.url + data['id'] + '/', data)
+				.map(this.extractData);
+
+		return result;
+	}
+
 	private extractData (response: Response) {
 		let body = response.json();
 
