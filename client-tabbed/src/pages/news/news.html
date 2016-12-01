@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>{{ title }}</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="create()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	{{ errorMessage }}
+	<ion-list>
+		<ion-item *ngFor="let item of data" (click)="details(item);" detail-push>
+			<ion-avatar item-left>
+				<img src="http://www.adamauckland.com/static/layout/images/content/gravatar_100.jpg">
+			</ion-avatar>
+			<h2>{{ item.author }}</h2>
+			<h3>{{ item.date_published }} {{ item.date_created }}</h3>
+			<p>{{ item.content }}</p>
+			<span>Published {{ item.published }}</span>
+		</ion-item>
+	</ion-list>
+</ion-content>
