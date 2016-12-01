@@ -1,7 +1,10 @@
 var app = require('express')();
-var http = require('http').Server(app);
+var http = require('http', { path: '/live/socket.io' }).Server(app);
+var cors = require('cors');
 var io = require('socket.io')(http);
 var _sockets = [];
+
+app.use(cors());
 
 app.get('/', function(req, res){
 	res.send(200, 'ok');
