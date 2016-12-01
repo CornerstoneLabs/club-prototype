@@ -12,12 +12,46 @@
 <ion-content padding>
 	<ion-list>
 		<ion-item>
-			<ion-label> Published</ion-label>
-			<ion-toggle [(ngModel)]="published"></ion-toggle>
+			<ion-label>Title</ion-label>
+			<ion-input type="text" [(ngModel)]="data.title" name="title"></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label stacked>Write something</ion-label>
-			<ion-textarea rows=6 [(ngModel)]="content"></ion-textarea>
+			<ion-label>Description</ion-label>
+			<ion-input type="text" [(ngModel)]="data.content" name="content"></ion-input>
+		</ion-item>
+	</ion-list>
+
+	<ion-list *ngFor="let day of days">
+		<ion-item detail-push (click)="chooseDay(day)">
+			<ion-label>Day</ion-label>
+			<ion-input type="text" value="{{ dayName(day) }}"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Start Time</ion-label>
+			<ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="day.startTime"></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-label>End Time</ion-label>
+			<ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="day.endTime"></ion-datetime>
+		</ion-item>
+		<ion-item detail-push (click)="selectLocation(day)">
+			<ion-label>Location</ion-label>
+			<ion-input type="text" readonly="true" value="Please select..." *ngIf="day.location === null"></ion-input>
+			<ion-input type="text" readonly="true" value="{{ day.location.title }}" *ngIf="day.location !== null"></ion-input>
+		</ion-item>
+		<ion-item detail-push (click)="selectAdmins(day)">
+			<ion-label>Teacher</ion-label>
+			<ion-input type="text" readonly="true" value="Please select..."></ion-input>
+		</ion-item>
+		<ion-item *ngFor="let admin of day.admins">
+			{{ admin.name || 'No name' }}
+		</ion-item>
+	</ion-list>
+
+	<ion-list>
+		<ion-item detail-push (click)="addDay()">
+			<ion-label>Day</ion-label>
+			<ion-input type="text" readonly="true" value="Please select..."></ion-input>
 		</ion-item>
 	</ion-list>
 </ion-content>

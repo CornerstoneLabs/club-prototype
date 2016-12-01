@@ -30,11 +30,10 @@ export class SituationDetailPage {
 
 		this.getData();
 
-		let _this = this;
 		this
 			.authenticationEvent
 			.onHasAuthenticated(()=> {
-				_this.getData();
+				this.getData();
 			});
 	}
 

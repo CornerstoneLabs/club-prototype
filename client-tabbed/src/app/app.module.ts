@@ -25,6 +25,10 @@ import {NewsCreatePage} from "../pages/news/news-create";
 import {NewsEditPage} from "../pages/news/news-edit";
 import {SituationCreatePage} from "../pages/situation/situation-create";
 import {SituationEditPage} from "../pages/situation/situation-edit";
+import {DaySelectPage} from "../pages/day-select/day-select";
+import {LocationSelectPage} from "../pages/location-select/location-select";
+import {LocationRepository} from "../repository/location.repository";
+import {AdminSelectPage} from "../pages/admin-select/admin-select";
 
 @NgModule({
 	declarations: [
@@ -42,7 +46,10 @@ import {SituationEditPage} from "../pages/situation/situation-edit";
 		SituationWrapperPage,
 		SituationDetailPage,
 		SituationCreatePage,
-		SituationEditPage
+		SituationEditPage,
+		DaySelectPage,
+		LocationSelectPage,
+		AdminSelectPage
 	],
 	imports: [
 		IonicModule.forRoot(MyApp),
@@ -66,7 +73,10 @@ import {SituationEditPage} from "../pages/situation/situation-edit";
 		SituationWrapperPage,
 		SituationDetailPage,
 		SituationCreatePage,
-		SituationEditPage
+		SituationEditPage,
+		DaySelectPage,
+		LocationSelectPage,
+		AdminSelectPage
 	],
 	providers: [
 		{
@@ -75,6 +85,7 @@ import {SituationEditPage} from "../pages/situation/situation-edit";
 		},
 		NewsRepository,
 		SituationRepository,
+		LocationRepository,
 		ApplicationSettings,
 		AuthenticatedHttpClient,
 		AuthenticationManager,

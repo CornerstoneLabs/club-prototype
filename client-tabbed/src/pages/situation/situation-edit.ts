@@ -29,9 +29,8 @@ export class SituationEditPage {
 
         this.getData();
 
-        let _this = this;
         this.authenticationEvent.onHasAuthenticated(()=> {
-            _this.getData();
+            this.getData();
         });
     }
 
@@ -41,7 +40,7 @@ export class SituationEditPage {
             .get(this.id)
             .subscribe(
                 data => this.data = data,
-                error =>  this.errorMessage = <any>error
+                error => this.errorMessage = <any>error
             );
     }
 

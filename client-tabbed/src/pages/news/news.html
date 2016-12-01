@@ -12,9 +12,9 @@
 <ion-content padding>
 	{{ errorMessage }}
 	<ion-list>
-		<ion-item *ngFor="let item of data" (click)="details(item);">
+		<ion-item *ngFor="let item of data" (click)="details(item);" detail-push>
 			<ion-avatar item-left>
-				<img src="https://api.adorable.io/avatars/59/abott@adorable.io.png">
+				<img src="http://www.adamauckland.com/static/layout/images/content/gravatar_100.jpg">
 			</ion-avatar>
 			<h2>{{ item.author }}</h2>
 			<h3>{{ item.date_published }} {{ item.date_created }}</h3>

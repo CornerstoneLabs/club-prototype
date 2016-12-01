@@ -28,8 +28,8 @@ class Location(models.Model):
         return self.title
 
 
-class Class(models.Model):
-    """A class definition."""
+class ClassSchedule(models.Model):
+    """A single scheduled item."""
 
     day = models.IntegerField(default=0, choices=DAY_PICKER)
 
@@ -40,11 +40,19 @@ class Class(models.Model):
     end_minutes = models.IntegerField(choices=MINUTES_PICKER)
 
     location = models.ForeignKey(Location)
-    title = models.CharField(max_length=1000)
-    teacher = models.ForeignKey(User)
+    teacher = models.ManyToManyField(User)
 
+
+class Class(models.Model):
+    """A class definition."""
+
+    class_schedule = models.ManyToManyField(ClassSchedule)
+    title = models.CharField(max_length=1000)
     image = models.ImageField(blank=True, null=True)
 
+    #
+    # Semester data for future
+    #
     recurring = models.BooleanField(default=True)
     sessions_start = models.DateField(blank=True, null=True)
     sessions_end = models.DateField(blank=True, null=True)
@@ -70,6 +78,7 @@ class ClassSession(models.Model):
     """A single session of a class."""
 
     parent_class = models.ForeignKey(Class)
+    scheduled_class = models.ForeignKey(ClassSchedule, blank=True, null=True)
     session_start = models.DateTimeField()
     session_end = models.DateTimeField()
     checked_in = models.ManyToManyField(User, blank=True, related_name='checked_in')
